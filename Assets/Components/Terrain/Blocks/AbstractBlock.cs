@@ -5,17 +5,22 @@ using UnityEngine;
 public abstract class AbstractBlock
 {
     /// <summary>
-    /// The woorld x coordinate of this block
+    /// If the block is visible or not.
+    /// </summary>
+    public abstract bool isVisible { get; }
+
+    /// <summary>
+    /// The woorld x coordinate of this block.
     /// </summary>
     public int worldXCoordinate;
 
     /// <summary>
-    /// The world y coordinate of this block
+    /// The world y coordinate of this block.
     /// </summary>
     public int worldYCoordinate;
 
     /// <summary>
-    /// The world z coordinate of this block
+    /// The world z coordinate of this block.
     /// </summary>
     public int worldZCoordinate;
 }

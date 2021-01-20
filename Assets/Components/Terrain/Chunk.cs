@@ -88,31 +88,27 @@ namespace Antymology.Terrain
 
         public void GenerateMesh()
         {
+            // For each block in this chunk
             for (int x = 0; x < ConfigurationManager.Instance.Chunk_Diameter; x++)
                 for (int z = 0; z < ConfigurationManager.Instance.Chunk_Diameter; z++)
                     for (int y = 0; y < ConfigurationManager.Instance.Chunk_Diameter; y++)
                     {
+                        // If the block is visible, display all faces which are adjacent to invisible blocks
                         AbstractBlock ours = GetBlock(x, y, z);
-                        Type ourType = ours.GetType();
-                        if (ourType != typeof(AirBlock))
+                        if (ours.isVisible)
                         {
-                            if (GetBlock(x, y + 1, z).GetType() == typeof(AirBlock))
-                                FaceYPos(x, y, z, ours);
-
-                            if (GetBlock(x, y - 1, z).GetType() == typeof(AirBlock))
-                                FaceYNeg(x, y, z, ours);
-
-                            if (GetBlock(x + 1, y, z).GetType() == typeof(AirBlock))
-                                FaceXPos(x, y, z, ours);
-
-                            if (GetBlock(x - 1, y, z).GetType() == typeof(AirBlock))
-                                FaceXNeg(x, y, z, ours);
-
-                            if (GetBlock(x, y, z + 1).GetType() == typeof(AirBlock))
-                                FaceZPos(x, y, z, ours);
-
-                            if (GetBlock(x, y, z - 1).GetType() == typeof(AirBlock))
-                                FaceZNeg(x, y, z, ours);
+                            if (!GetBlock(x + 1, y, z).isVisible)
+                                AddPosXFace(x, y, z, ours);
+                            if (!GetBlock(x - 1, y, z).isVisible)
+                                AddNegXFace(x, y, z, ours);
+                            if (!GetBlock(x, y + 1, z).isVisible)
+                                AddPosYFace(x, y, z, ours);
+                            if (!GetBlock(x, y - 1, z).isVisible)
+                                AddNegYFace(x, y, z, ours);
+                            if (!GetBlock(x, y, z + 1).isVisible)
+                                AddPosZFace(x, y, z, ours);
+                            if (!GetBlock(x, y, z - 1).isVisible)
+                                AddNegZFace(x, y, z, ours);
                         }
                     }
         }
