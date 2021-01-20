@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Antymology.Terrain
@@ -86,8 +87,17 @@ namespace Antymology.Terrain
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Generates a mesh object which is then passed to the Mesh component of this monobehaviour.
+        /// </summary>
         public void GenerateMesh()
         {
+            // Creation of temporary mesh variables which we will use to create the unity mesh object.
+            List<Vector3> vertices = new List<Vector3>();
+            List<int> triangles = new List<int>();
+            List<Vector2> uvs = new List<Vector2>();
+            int NumFaces = 0;
+
             // For each block in this chunk
             for (int x = 0; x < ConfigurationManager.Instance.Chunk_Diameter; x++)
                 for (int z = 0; z < ConfigurationManager.Instance.Chunk_Diameter; z++)
@@ -98,19 +108,31 @@ namespace Antymology.Terrain
                         if (ours.isVisible)
                         {
                             if (!GetBlock(x + 1, y, z).isVisible)
-                                AddPosXFace(x, y, z, ours);
+                                AddPosXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                             if (!GetBlock(x - 1, y, z).isVisible)
-                                AddNegXFace(x, y, z, ours);
+                                AddNegXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                             if (!GetBlock(x, y + 1, z).isVisible)
-                                AddPosYFace(x, y, z, ours);
+                                AddPosYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                             if (!GetBlock(x, y - 1, z).isVisible)
-                                AddNegYFace(x, y, z, ours);
+                                AddNegYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                             if (!GetBlock(x, y, z + 1).isVisible)
-                                AddPosZFace(x, y, z, ours);
+                                AddPosZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                             if (!GetBlock(x, y, z - 1).isVisible)
-                                AddNegZFace(x, y, z, ours);
+                                AddNegZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                         }
                     }
+
+            // Clear whatever data was in the mesh previously
+            mesh.Clear();
+
+            // Add in newly calculated values
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.uv = uvs.ToArray();
+
+            // Optimize, and normal calculation
+            MeshUtility.Optimize(mesh);
+            mesh.RecalculateNormals();
         }
 
         #endregion
