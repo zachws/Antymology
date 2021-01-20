@@ -29,11 +29,6 @@ namespace Antymology.Terrain
         public int z { get; set; }
 
         /// <summary>
-        /// The radius of a chunk object.
-        /// </summary>
-        public int radius;
-
-        /// <summary>
         /// The rendering material used to display this chunk.
         /// </summary>
         public Material mat { get; set; }
@@ -57,6 +52,22 @@ namespace Antymology.Terrain
 
         #region Methods
 
+        /// <summary>
+        /// On start, initialize the gameobject to have a mesh and mesh renderer, and set the references internally.
+        /// </summary>
+        private void Start()
+        {
+            mesh = gameObject.AddComponent<MeshFilter>().mesh;
+            renderer = gameObject.AddComponent<MeshRenderer>();
+        }
+
+        /// <summary>
+        /// Gets the Block with local coordinates from this chunk.
+        /// </summary>
+        /// <param name="localXCoordinate">The local x coordinate of the desired block.</param>
+        /// <param name="localYCoordinate">The local y coordinate of the desired block.</param>
+        /// <param name="localZCoordinate">The local z coordinate of the desired block.</param>
+        /// <returns>The Block with local coordinates from this chunk.</returns>
         public Block GetBlock(int localXCoordinate, int localYCoordinate, int localZCoordinate)
         {
             if
@@ -66,10 +77,11 @@ namespace Antymology.Terrain
                 localZCoordinate > radius || localZCoordinate < 0
             )
                 throw new Exception(
-                    string.Format("Invalid local coordinate. Chunks have a minimum coordinate of 0, and a maximum coordinate of {0}", radius)
+                    string.Format("Invalid local coordinate. Chunks have a minimum coordinate of 0, and a maximum coordinate of {0}",
+                    WorldManager.Instance.CHUNK_RADIUS)
                 );
 
-            throw new NotImplementedException;
+            throw new NotImplementedException();
         }
 
         #endregion
