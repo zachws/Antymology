@@ -4,6 +4,12 @@ using UnityEngine;
 
 public abstract class AbstractBlock
 {
+
+    /// <summary>
+    /// The texture map coordinates of this block.
+    /// </summary>
+    public abstract Vector2 tileMapCoordinate { get; }
+
     /// <summary>
     /// If the block is visible or not.
     /// </summary>
