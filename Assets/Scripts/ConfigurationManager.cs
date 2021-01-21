@@ -14,4 +14,9 @@ public class ConfigurationManager : Singleton<ConfigurationManager>
     /// The number of blocks in any dimension of a chunk.
     /// </summary>
     public int Chunk_Diameter = 8;
+
+    /// <summary>
+    /// How much of the tile map does each tile take up
+    /// </summary>
+    public float Tile_Map_Unit_Ratio = 0.25f;
 }
