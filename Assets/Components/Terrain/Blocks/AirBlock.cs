@@ -12,6 +12,7 @@ namespace Antymology.Terrain
     /// </summary>
     public class AirBlock : AbstractBlock
     {
+
         #region Fields
 
         /// <summary>
@@ -28,7 +29,6 @@ namespace Antymology.Terrain
         /// A dictionary representing the phermone deposits in the air. Each type of phermone gets it's own byte key, and each phermone type has a concentration.
         /// </summary>
         private Dictionary<byte, double> phermoneDeposits;
-
 
         #endregion
 
