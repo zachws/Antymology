@@ -6,9 +6,14 @@ public class ConfigurationManager : Singleton<ConfigurationManager>
 {
 
     /// <summary>
+    /// The seed for world generation.
+    /// </summary>
+    public int Seed = 1337;
+
+    /// <summary>
     /// The number of chunks in any dimension of the world.
     /// </summary>
-    public int World_Diameter = 16;
+    public int World_Diameter = 8;
 
     /// <summary>
     /// The number of blocks in any dimension of a chunk.
