@@ -7,15 +7,22 @@ namespace Antymology.Terrain
     /// </summary>
     public class MulchBlock : AbstractBlock
     {
+
+        #region Fields
+
         /// <summary>
         /// Statically held tile map coordinate.
         /// </summary>
-        static Vector2 _tileMapCoordinate = new Vector2(0, 1);
+        private static Vector2 _tileMapCoordinate = new Vector2(0, 1);
 
         /// <summary>
         /// Statically held is visible.
         /// </summary>
-        static bool _isVisible = true;
+        private static bool _isVisible = true;
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// The tile at the 0, 1, position in the tilemap.
@@ -32,5 +39,7 @@ namespace Antymology.Terrain
         {
             return _isVisible;
         }
+
+        #endregion
     }
 }

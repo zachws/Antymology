@@ -16,19 +16,34 @@ namespace Antymology.Terrain
         #region Fields
 
         /// <summary>
-        /// Air blocks are going to be invisible.
+        /// Statically held is visible.
         /// </summary>
-        public override bool isVisible => false;
-
-        /// <summary>
-        /// Air blocks are invisible so asking for their tile map coordinate doesn't make sense.
-        /// </summary>
-        public override Vector2 tileMapCoordinate => throw new Exception("An invisible tile cannot have a tile map coordinate.");
+        private static bool _isVisible = false;
 
         /// <summary>
         /// A dictionary representing the phermone deposits in the air. Each type of phermone gets it's own byte key, and each phermone type has a concentration.
         /// </summary>
         private Dictionary<byte, double> phermoneDeposits;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Air blocks are going to be invisible.
+        /// </summary>
+        public override bool isVisible()
+        {
+            return _isVisible;
+        }
+
+        /// <summary>
+        /// Air blocks are invisible so asking for their tile map coordinate doesn't make sense.
+        /// </summary>
+        public override Vector2 tileMapCoordinate()
+        {
+            throw new Exception("An invisible tile cannot have a tile map coordinate.");
+        }
 
         #endregion
 
