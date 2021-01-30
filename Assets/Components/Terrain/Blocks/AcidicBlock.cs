@@ -3,19 +3,43 @@
 namespace Antymology.Terrain
 {
     /// <summary>
-    /// A dangerous block for ants to walk on. Damages ants for every tick they are on this block.
+    /// A block of terrain which is poisonous to ants.
     /// </summary>
     public class AcidicBlock : AbstractBlock
     {
 
-        /// <summary>
-        /// The tile at the 0, 3, position in the tilemap.
-        /// </summary>
-        public override Vector2 tileMapCoordinate => new Vector2(0, 3);
+        #region Fields
 
         /// <summary>
-        /// acidic blocks are visible.
+        /// Statically held tile map coordinate.
         /// </summary>
-        public override bool isVisible => true;
+        private static Vector2 _tileMapCoordinate = new Vector2(0, 3);
+
+        /// <summary>
+        /// Statically held is visible.
+        /// </summary>
+        private static bool _isVisible = true;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The tile at the 0, 1, position in the tilemap.
+        /// </summary>
+        public override Vector2 tileMapCoordinate()
+        {
+            return _tileMapCoordinate;
+        }
+
+        /// <summary>
+        /// mulch is a visible block.
+        /// </summary>
+        public override bool isVisible()
+        {
+            return _isVisible;
+        }
+
+        #endregion
     }
 }
