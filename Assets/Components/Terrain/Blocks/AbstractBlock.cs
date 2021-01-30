@@ -8,12 +8,12 @@ public abstract class AbstractBlock
     /// <summary>
     /// The texture map coordinates of this block.
     /// </summary>
-    public abstract Vector2 tileMapCoordinate { get; }
+    public abstract Vector2 tileMapCoordinate();
 
     /// <summary>
     /// If the block is visible or not.
     /// </summary>
-    public abstract bool isVisible { get; }
+    public abstract bool isVisible();
 
     /// <summary>
     /// The woorld x coordinate of this block.
