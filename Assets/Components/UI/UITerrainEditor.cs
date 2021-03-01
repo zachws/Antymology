@@ -11,6 +11,9 @@ namespace Antymology.UI
     {
         private AbstractBlock currentBlockType = new StoneBlock();
 
+        /// <summary>
+        /// Replaces the block at the cursor with the current block type.
+        /// </summary>
         void ReplaceBlockCursor()
         {
             //Replaces the block specified where the mouse cursor is pointing
@@ -24,6 +27,9 @@ namespace Antymology.UI
             }
         }
 
+        /// <summary>
+        /// Adds a block at the cursor offset toward whichever face was clicked.
+        /// </summary>
         void AddBlockCursor()
         {
             //Adds the block specified where the mouse cursor is pointing
@@ -37,6 +43,10 @@ namespace Antymology.UI
             }
         }
 
+        /// <summary>
+        /// Replaces a block at a raycast hit.
+        /// </summary>
+        /// <param name="hit"></param>
         void ReplaceBlockAt(RaycastHit hit)
         {
             Vector3 position = hit.point;
@@ -44,6 +54,10 @@ namespace Antymology.UI
             SetBlockAt(position);
         }
 
+        /// <summary>
+        /// Adds a block at a raycast hit, in the offset of the normal.
+        /// </summary>
+        /// <param name="hit"></param>
         void AddBlockAt(RaycastHit hit)
         {
             //adds the specified block at these impact coordinates, you can raycast against the terrain and call this with the hit.point
