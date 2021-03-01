@@ -93,9 +93,9 @@ namespace Antymology.Terrain
                 WorldXCoordinate < 0 ||
                 WorldYCoordinate < 0 ||
                 WorldZCoordinate < 0 ||
-                WorldXCoordinate >= ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ||
-                WorldYCoordinate >= ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter ||
-                WorldZCoordinate >= ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter
+                WorldXCoordinate >= Blocks.GetLength(0) ||
+                WorldYCoordinate >= Blocks.GetLength(1) ||
+                WorldZCoordinate >= Blocks.GetLength(2)
             )
                 return new AirBlock();
 
@@ -114,15 +114,15 @@ namespace Antymology.Terrain
                 LocalXCoordinate < 0 ||
                 LocalYCoordinate < 0 ||
                 LocalZCoordinate < 0 ||
-                LocalXCoordinate >= ConfigurationManager.Instance.Chunk_Diameter ||
-                LocalYCoordinate >= ConfigurationManager.Instance.Chunk_Diameter ||
-                LocalZCoordinate >= ConfigurationManager.Instance.Chunk_Diameter ||
+                LocalXCoordinate >= Blocks.GetLength(0) ||
+                LocalYCoordinate >= Blocks.GetLength(1) ||
+                LocalZCoordinate >= Blocks.GetLength(2) ||
                 ChunkXCoordinate < 0 ||
                 ChunkYCoordinate < 0 ||
                 ChunkZCoordinate < 0 ||
-                ChunkXCoordinate >= ConfigurationManager.Instance.World_Diameter ||
-                ChunkYCoordinate >= ConfigurationManager.Instance.World_Height ||
-                ChunkZCoordinate >= ConfigurationManager.Instance.World_Diameter
+                ChunkXCoordinate >= Blocks.GetLength(0) ||
+                ChunkYCoordinate >= Blocks.GetLength(1) ||
+                ChunkZCoordinate >= Blocks.GetLength(2) 
             )
                 return new AirBlock();
 
@@ -144,11 +144,14 @@ namespace Antymology.Terrain
                 WorldXCoordinate < 0 ||
                 WorldYCoordinate < 0 ||
                 WorldZCoordinate < 0 ||
-                WorldXCoordinate > ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ||
-                WorldYCoordinate > ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter ||
-                WorldZCoordinate > ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter
+                WorldXCoordinate > Blocks.GetLength(0) ||
+                WorldYCoordinate > Blocks.GetLength(1) ||
+                WorldZCoordinate > Blocks.GetLength(2)
             )
-                throw new IndexOutOfRangeException();
+            {
+                Debug.Log("Attempted to set a block which didn't exist");
+                return;
+            }
 
             Blocks[WorldXCoordinate, WorldYCoordinate, WorldZCoordinate] = toSet;
         }
@@ -166,18 +169,20 @@ namespace Antymology.Terrain
                 LocalXCoordinate < 0 ||
                 LocalYCoordinate < 0 ||
                 LocalZCoordinate < 0 ||
-                LocalXCoordinate > ConfigurationManager.Instance.Chunk_Diameter ||
-                LocalYCoordinate > ConfigurationManager.Instance.Chunk_Diameter ||
-                LocalZCoordinate > ConfigurationManager.Instance.Chunk_Diameter ||
+                LocalXCoordinate > Blocks.GetLength(0) ||
+                LocalYCoordinate > Blocks.GetLength(1) ||
+                LocalZCoordinate > Blocks.GetLength(2) ||
                 ChunkXCoordinate < 0 ||
                 ChunkYCoordinate < 0 ||
                 ChunkZCoordinate < 0 ||
-                ChunkXCoordinate > ConfigurationManager.Instance.World_Diameter ||
-                ChunkYCoordinate > ConfigurationManager.Instance.World_Diameter ||
-                ChunkZCoordinate > ConfigurationManager.Instance.World_Diameter
+                ChunkXCoordinate > Blocks.GetLength(0) ||
+                ChunkYCoordinate > Blocks.GetLength(1) ||
+                ChunkZCoordinate > Blocks.GetLength(2)
             )
-                throw new IndexOutOfRangeException();
-
+            {
+                Debug.Log("Attempted to set a block which didn't exist");
+                return;
+            }
             Blocks
             [
                 ChunkXCoordinate * LocalXCoordinate,
@@ -195,35 +200,14 @@ namespace Antymology.Terrain
         private void GenerateData()
         {
             GeneratePreliminaryWorld();
+            GenerateAcidicRegions();
+            GenerateSphericalContainers();
+            GenerateCaves();
         }
 
-        private void GenerateChunks()
-        {
-            GameObject chunkObg = new GameObject("Chunks");
-
-            for (int x = 0; x < Chunks.GetLength(0); x++)
-                for (int z = 0; z < Chunks.GetLength(2); z++)
-                    for (int y = 0; y < Chunks.GetLength(1); y++)
-                    {
-                        GameObject temp = new GameObject();
-                        temp.transform.parent = chunkObg.transform;
-                        temp.transform.position = new Vector3
-                        (
-                            x * ConfigurationManager.Instance.Chunk_Diameter - 0.5f,
-                            y * ConfigurationManager.Instance.Chunk_Diameter + 0.5f,
-                            z * ConfigurationManager.Instance.Chunk_Diameter - 0.5f
-                        );
-                        Chunk chunkScript = temp.AddComponent<Chunk>();
-                        chunkScript.x = x * ConfigurationManager.Instance.Chunk_Diameter;
-                        chunkScript.y = y * ConfigurationManager.Instance.Chunk_Diameter;
-                        chunkScript.z = z * ConfigurationManager.Instance.Chunk_Diameter;
-                        chunkScript.Init();
-                        temp.GetComponent<Renderer>().material = blockMaterial;
-                        chunkScript.GenerateMesh();
-                        Chunks[x, y, z] = chunkScript;
-                    }
-        }
-
+        /// <summary>
+        /// Generates the preliminary world data based on perlin noise.
+        /// </summary>
         private void GeneratePreliminaryWorld()
         {
             for (int x = 0; x < Blocks.GetLength(0); x++)
@@ -260,9 +244,9 @@ namespace Antymology.Terrain
                         if
                         (
                             x == 0 ||
-                            x >= ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter - 1 ||
+                            x >= Blocks.GetLength(0) - 1 ||
                             z == 0 ||
-                            z >= ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter - 1 ||
+                            z >= Blocks.GetLength(2) - 1 ||
                             y == 0
                         )
                             Blocks[x, y, z] = new ContainerBlock();
@@ -270,10 +254,123 @@ namespace Antymology.Terrain
                 }
         }
 
+        /// <summary>
+        /// Alters a pre-generated map so that acid blocks exist.
+        /// </summary>
+        private void GenerateAcidicRegions()
+        {
+            for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Acidic_Regions; i++)
+            {
+                int xCoord = RNG.Next(0, Blocks.GetLength(0));
+                int zCoord = RNG.Next(0, Blocks.GetLength(2));
+                int yCoord = -1;
+                for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
+                {
+                    if (Blocks[xCoord, j, zCoord] as AirBlock == null)
+                    {
+                        yCoord = j;
+                        break;
+                    }
+                }
+
+                //Generate a sphere around this point overriding non-air blocks
+                for (int HX = xCoord - ConfigurationManager.Instance.Acidic_Region_Radius; HX < xCoord + ConfigurationManager.Instance.Acidic_Region_Radius; HX++)
+                {
+                    for (int HZ = zCoord - ConfigurationManager.Instance.Acidic_Region_Radius; HZ < zCoord + ConfigurationManager.Instance.Acidic_Region_Radius; HZ++)
+                    {
+                        for (int HY = yCoord - ConfigurationManager.Instance.Acidic_Region_Radius; HY < yCoord + ConfigurationManager.Instance.Acidic_Region_Radius; HY++)
+                        {
+                            float xSquare = (xCoord - HX) * (xCoord - HX);
+                            float ySquare = (yCoord - HY) * (yCoord - HY);
+                            float zSquare = (zCoord - HZ) * (zCoord - HZ);
+                            float Dist = Mathf.Sqrt(xSquare + ySquare + zSquare);
+                            if (Dist <= ConfigurationManager.Instance.Acidic_Region_Radius)
+                            {
+                                int CX, CY, CZ;
+                                CX = Mathf.Clamp(HX, 1, Blocks.GetLength(0) - 2);
+                                CZ = Mathf.Clamp(HZ, 1, Blocks.GetLength(2) - 2);
+                                CY = Mathf.Clamp(HY, 1, Blocks.GetLength(1) - 2);
+                                if (Blocks[CX, CY, CZ] as AirBlock != null)
+                                    Blocks[CX, CY, CZ] = new AcidicBlock();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Alters a pre-generated map so that obstructions exist within the map.
+        /// </summary>
+        private void GenerateSphericalContainers()
+        {
+
+            //Generate hazards
+            for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Conatiner_Spheres; i++)
+            {
+                int xCoord = RNG.Next(0, Blocks.GetLength(0));
+                int zCoord = RNG.Next(0, Blocks.GetLength(2));
+                int yCoord = RNG.Next(0, Blocks.GetLength(1));
+
+
+                //Generate a sphere around this point overriding non-air blocks
+                for (int HX = xCoord - ConfigurationManager.Instance.Conatiner_Sphere_Radius; HX < xCoord + ConfigurationManager.Instance.Conatiner_Sphere_Radius; HX++)
+                {
+                    for (int HZ = zCoord - ConfigurationManager.Instance.Conatiner_Sphere_Radius; HZ < zCoord + ConfigurationManager.Instance.Conatiner_Sphere_Radius; HZ++)
+                    {
+                        for (int HY = yCoord - ConfigurationManager.Instance.Conatiner_Sphere_Radius; HY < yCoord + ConfigurationManager.Instance.Conatiner_Sphere_Radius; HY++)
+                        {
+                            float xSquare = (xCoord - HX) * (xCoord - HX);
+                            float ySquare = (yCoord - HY) * (yCoord - HY);
+                            float zSquare = (zCoord - HZ) * (zCoord - HZ);
+                            float Dist = Mathf.Sqrt(xSquare + ySquare + zSquare);
+                            if (Dist <= ConfigurationManager.Instance.Conatiner_Sphere_Radius)
+                            {
+                                int CX, CY, CZ;
+                                CX = Mathf.Clamp(HX, 1, Blocks.GetLength(0) - 2);
+                                CZ = Mathf.Clamp(HZ, 1, Blocks.GetLength(2) - 2);
+                                CY = Mathf.Clamp(HY, 1, Blocks.GetLength(1) - 2);
+                                Blocks[CX, CY, CZ] = new ContainerBlock();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Chunks
 
+        /// <summary>
+        /// Takes the world data and generates the associated chunk objects.
+        /// </summary>
+        private void GenerateChunks()
+        {
+            GameObject chunkObg = new GameObject("Chunks");
+
+            for (int x = 0; x < Chunks.GetLength(0); x++)
+                for (int z = 0; z < Chunks.GetLength(2); z++)
+                    for (int y = 0; y < Chunks.GetLength(1); y++)
+                    {
+                        GameObject temp = new GameObject();
+                        temp.transform.parent = chunkObg.transform;
+                        temp.transform.position = new Vector3
+                        (
+                            x * ConfigurationManager.Instance.Chunk_Diameter - 0.5f,
+                            y * ConfigurationManager.Instance.Chunk_Diameter + 0.5f,
+                            z * ConfigurationManager.Instance.Chunk_Diameter - 0.5f
+                        );
+                        Chunk chunkScript = temp.AddComponent<Chunk>();
+                        chunkScript.x = x * ConfigurationManager.Instance.Chunk_Diameter;
+                        chunkScript.y = y * ConfigurationManager.Instance.Chunk_Diameter;
+                        chunkScript.z = z * ConfigurationManager.Instance.Chunk_Diameter;
+                        chunkScript.Init();
+                        temp.GetComponent<Renderer>().material = blockMaterial;
+                        chunkScript.GenerateMesh();
+                        Chunks[x, y, z] = chunkScript;
+                    }
+        }
 
         #endregion
 
