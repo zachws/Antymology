@@ -154,6 +154,13 @@ namespace Antymology.Terrain
             }
 
             Blocks[WorldXCoordinate, WorldYCoordinate, WorldZCoordinate] = toSet;
+
+            SetChunkContainingBlockToUpdate
+            (
+                WorldXCoordinate,
+                WorldYCoordinate,
+                WorldZCoordinate
+            );
         }
 
         /// <summary>
@@ -189,6 +196,13 @@ namespace Antymology.Terrain
                 ChunkYCoordinate * LocalYCoordinate,
                 ChunkZCoordinate * LocalZCoordinate
             ] = toSet;
+
+            SetChunkContainingBlockToUpdate
+            (
+                ChunkXCoordinate * LocalXCoordinate,
+                ChunkYCoordinate * LocalYCoordinate,
+                ChunkZCoordinate * LocalZCoordinate
+            );
         }
 
         #endregion
@@ -202,7 +216,6 @@ namespace Antymology.Terrain
             GeneratePreliminaryWorld();
             GenerateAcidicRegions();
             GenerateSphericalContainers();
-            GenerateCaves();
         }
 
         /// <summary>
@@ -338,6 +351,31 @@ namespace Antymology.Terrain
             }
         }
 
+        private void SetChunkContainingBlockToUpdate(int x, int y, int z)
+        {
+            //Updates the chunk containing this block
+            int updateX = Mathf.FloorToInt(x / ConfigurationManager.Instance.Chunk_Diameter);
+            int updateY = Mathf.FloorToInt(y / ConfigurationManager.Instance.Chunk_Diameter);
+            int updateZ = Mathf.FloorToInt(z / ConfigurationManager.Instance.Chunk_Diameter);
+            Chunks[updateX, updateY, updateZ].updateNeeded = true;
+            
+            // Also flag all 6 neighbours for update as well
+            if(updateX - 1 >= 0)
+                Chunks[updateX - 1, updateY, updateZ].updateNeeded = true;
+            if (updateX + 1 < Chunks.GetLength(0))
+                Chunks[updateX + 1, updateY, updateZ].updateNeeded = true;
+
+            if (updateY - 1 >= 0)
+                Chunks[updateX, updateY - 1, updateZ].updateNeeded = true;
+            if (updateY + 1 < Chunks.GetLength(1))
+                Chunks[updateX, updateY + 1, updateZ].updateNeeded = true;
+
+            if (updateZ - 1 >= 0)
+                Chunks[updateX, updateY, updateZ - 1].updateNeeded = true;
+            if (updateX + 1 < Chunks.GetLength(2))
+                Chunks[updateX, updateY, updateZ + 1].updateNeeded = true;
+        }
+
         #endregion
 
         #region Chunks
@@ -365,8 +403,7 @@ namespace Antymology.Terrain
                         chunkScript.x = x * ConfigurationManager.Instance.Chunk_Diameter;
                         chunkScript.y = y * ConfigurationManager.Instance.Chunk_Diameter;
                         chunkScript.z = z * ConfigurationManager.Instance.Chunk_Diameter;
-                        chunkScript.Init();
-                        temp.GetComponent<Renderer>().material = blockMaterial;
+                        chunkScript.Init(blockMaterial);
                         chunkScript.GenerateMesh();
                         Chunks[x, y, z] = chunkScript;
                     }
