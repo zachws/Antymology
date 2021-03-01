@@ -44,6 +44,11 @@ namespace Antymology.Terrain
         /// </summary>
         MeshRenderer renderer;
 
+        /// <summary>
+        /// The collider of this mesh
+        /// </summary>
+        MeshCollider collider;
+
         #endregion
 
         #region Methods
@@ -51,10 +56,12 @@ namespace Antymology.Terrain
         /// <summary>
         /// initialize the gameobject to have a mesh and mesh renderer, and set the references internally.
         /// </summary>
-        public void Init()
+        public void Init(Material mat)
         {
             mesh = gameObject.AddComponent<MeshFilter>().mesh;
             renderer = gameObject.AddComponent<MeshRenderer>();
+            renderer.material = mat;
+            collider = gameObject.AddComponent<MeshCollider>();
         }
 
         /// <summary>
@@ -116,6 +123,7 @@ namespace Antymology.Terrain
             // Optimize, and normal calculation
             MeshUtility.Optimize(mesh);
             mesh.RecalculateNormals();
+            collider.sharedMesh = mesh;
         }
 
         #endregion
