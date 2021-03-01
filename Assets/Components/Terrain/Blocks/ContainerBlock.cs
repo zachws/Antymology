@@ -7,15 +7,39 @@ namespace Antymology.Terrain
     /// </summary>
     public class ContainerBlock : AbstractBlock
     {
+        #region Fields
 
         /// <summary>
-        /// The tile at the 3, 3, position in the tilemap.
+        /// Statically held tile map coordinate.
         /// </summary>
-        public override Vector2 tileMapCoordinate => new Vector2(3, 3);
+        private static Vector2 _tileMapCoordinate = new Vector2(3, 3);
 
         /// <summary>
-        /// Container blocks are visible blocks.
+        /// Statically held is visible.
         /// </summary>
-        public override bool isVisible => true;
+        private static bool _isVisible = true;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The tile at the 0, 1, position in the tilemap.
+        /// </summary>
+        public override Vector2 tileMapCoordinate()
+        {
+            return _tileMapCoordinate;
+        }
+
+        /// <summary>
+        /// mulch is a visible block.
+        /// </summary>
+        public override bool isVisible()
+        {
+            return _isVisible;
+        }
+
+        #endregion
+
     }
 }

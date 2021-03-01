@@ -30,11 +30,6 @@ namespace Antymology.Terrain
         public int z { get; set; }
 
         /// <summary>
-        /// The rendering material used to display this chunk.
-        /// </summary>
-        public Material mat { get; set; }
-
-        /// <summary>
         /// Whether or not this chunk needs to have its mesh updated
         /// </summary>
         public bool updateNeeded { get; set; }
@@ -54,9 +49,9 @@ namespace Antymology.Terrain
         #region Methods
 
         /// <summary>
-        /// On start, initialize the gameobject to have a mesh and mesh renderer, and set the references internally.
+        /// initialize the gameobject to have a mesh and mesh renderer, and set the references internally.
         /// </summary>
-        private void Start()
+        public void Init()
         {
             mesh = gameObject.AddComponent<MeshFilter>().mesh;
             renderer = gameObject.AddComponent<MeshRenderer>();
@@ -72,18 +67,7 @@ namespace Antymology.Terrain
         /// <returns>The Block with local coordinates from this chunk.</returns>
         public AbstractBlock GetBlock(int localXCoordinate, int localYCoordinate, int localZCoordinate)
         {
-            // Error check that the local coordinate exists between 0, and the diameter of the chunk
-            if (
-                localXCoordinate > ConfigurationManager.Instance.Chunk_Diameter || localXCoordinate < 0 ||
-                localYCoordinate > ConfigurationManager.Instance.Chunk_Diameter || localYCoordinate < 0 ||
-                localZCoordinate > ConfigurationManager.Instance.Chunk_Diameter || localZCoordinate < 0
-            )
-                throw new Exception(
-                    string.Format("Invalid local coordinate. Chunks have a minimum coordinate of 0, and a maximum coordinate of {0}",
-                    ConfigurationManager.Instance.Chunk_Diameter)
-                );
-
-            throw new NotImplementedException();
+            return WorldManager.Instance.GetBlock(localXCoordinate + x, localYCoordinate + y, localZCoordinate + z);
         }
 
         /// <summary>
@@ -104,20 +88,20 @@ namespace Antymology.Terrain
                     {
                         // If the block is visible, display all faces which are adjacent to invisible blocks
                         AbstractBlock ours = GetBlock(x, y, z);
-                        if (ours.isVisible)
+                        if (ours.isVisible())
                         {
-                            if (!GetBlock(x + 1, y, z).isVisible)
-                                AddPosXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
-                            if (!GetBlock(x - 1, y, z).isVisible)
-                                AddNegXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
-                            if (!GetBlock(x, y + 1, z).isVisible)
-                                AddPosYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
-                            if (!GetBlock(x, y - 1, z).isVisible)
-                                AddNegYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
-                            if (!GetBlock(x, y, z + 1).isVisible)
-                                AddPosZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
-                            if (!GetBlock(x, y, z - 1).isVisible)
-                                AddNegZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x + 1, y, z).isVisible())
+                                    AddPosXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x - 1, y, z).isVisible())
+                                    AddNegXFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x, y + 1, z).isVisible())
+                                    AddPosYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x, y - 1, z).isVisible())
+                                    AddNegYFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x, y, z + 1).isVisible())
+                                    AddPosZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
+                                if (!GetBlock(x, y, z - 1).isVisible())
+                                    AddNegZFace(x, y, z, ours, vertices, triangles, uvs, ref NumFaces);
                         }
                     }
 
@@ -161,7 +145,7 @@ namespace Antymology.Terrain
         /// <param name="uvs">The list of UVs.</param>
         void AddRecentFaceTexture(AbstractBlock blockType, List<Vector2> uvs)
         {
-            Vector2 tileMapCoordinate = blockType.tileMapCoordinate;
+            Vector2 tileMapCoordinate = blockType.tileMapCoordinate();
             uvs.Add(
                 new Vector2(
                     ConfigurationManager.Instance.Tile_Map_Unit_Ratio * tileMapCoordinate.x + ConfigurationManager.Instance.Tile_Map_Unit_Ratio,
