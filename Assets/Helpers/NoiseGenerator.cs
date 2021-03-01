@@ -193,6 +193,30 @@ namespace Antymology.Helpers
             return value / divisor;
         }
 
+        /// <summary>
+        /// Generates 3D perlin noise
+        /// </summary>
+        /// <param name="x">x coord</param>
+        /// <param name="y">y coord</param>
+        /// <param name="z">z coord</param>
+        /// <param name="scale">coord / scale = new coord</param>
+        /// <param name="height">pResult * height = val</param>
+        /// <param name="power">val ^ pow = return</param>
+        /// <returns>returns the height at which a "layer" exists for this coord</returns>
+        public int GetPerlinNoise(int x, int y, int z, double scale, double height, double power)
+        {
+            double rValue;
+            rValue = GetNoise(((double)x) / scale, ((double)y) / scale, ((double)z) / scale);
+            rValue *= height;
+
+            if (power != 0)
+            {
+                rValue = Math.Pow(rValue, power);
+            }
+
+            return (int)rValue;
+        }
+
         #endregion
 
         #region Helpers
