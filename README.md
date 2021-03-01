@@ -4,7 +4,7 @@ As we\'ve seen in class, ants exhibit very interesting behaviour. From finding t
 
 I have already created the base code you will use for the assignment. Currently the simulation environment is devoid of any dynamic behaviour and exists only as a landscape. You will need to extend the functionality of what I have written in order to produce \"intelligent\" behaviour. Absolutely no behaviour has been added to this project so you are free to implement whatever you want however you want, with only a few stipulations.
 
-![Images/Ants.gif]
+![Ants](Images/Ants.gif)
 
 ## Goal
 
