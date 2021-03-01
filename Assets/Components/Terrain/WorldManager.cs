@@ -74,6 +74,9 @@ namespace Antymology.Terrain
         {
             GenerateData();
             GenerateChunks();
+
+            Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
+            Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
         }
 
         #endregion
