@@ -45,7 +45,9 @@ namespace Antymology.Terrain
 
         #region Initialization
 
-        // Awake is called before any start method is called.
+        /// <summary>
+        /// Awake is called before any start method is called.
+        /// </summary>
         void Awake()
         {
             // Generate new random number generator
@@ -77,6 +79,16 @@ namespace Antymology.Terrain
 
             Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
+
+            GenerateAnts();
+        }
+
+        /// <summary>
+        /// TO BE IMPLEMENTED BY YOU
+        /// </summary>
+        private void GenerateAnts()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -211,6 +223,9 @@ namespace Antymology.Terrain
 
         #region Blocks
 
+        /// <summary>
+        /// Is responsible for generating the base, acid, and spheres.
+        /// </summary>
         private void GenerateData()
         {
             GeneratePreliminaryWorld();
@@ -351,12 +366,20 @@ namespace Antymology.Terrain
             }
         }
 
-        private void SetChunkContainingBlockToUpdate(int x, int y, int z)
+        /// <summary>
+        /// Given a world coordinate, tells the chunk holding that coordinate to update.
+        /// Also tells all 4 neighbours to update (as an altered block might exist on the
+        /// edge of a chunk).
+        /// </summary>
+        /// <param name="worldXCoordinate"></param>
+        /// <param name="worldYCoordinate"></param>
+        /// <param name="worldZCoordinate"></param>
+        private void SetChunkContainingBlockToUpdate(int worldXCoordinate, int worldYCoordinate, int worldZCoordinate)
         {
             //Updates the chunk containing this block
-            int updateX = Mathf.FloorToInt(x / ConfigurationManager.Instance.Chunk_Diameter);
-            int updateY = Mathf.FloorToInt(y / ConfigurationManager.Instance.Chunk_Diameter);
-            int updateZ = Mathf.FloorToInt(z / ConfigurationManager.Instance.Chunk_Diameter);
+            int updateX = Mathf.FloorToInt(worldXCoordinate / ConfigurationManager.Instance.Chunk_Diameter);
+            int updateY = Mathf.FloorToInt(worldYCoordinate / ConfigurationManager.Instance.Chunk_Diameter);
+            int updateZ = Mathf.FloorToInt(worldZCoordinate / ConfigurationManager.Instance.Chunk_Diameter);
             Chunks[updateX, updateY, updateZ].updateNeeded = true;
             
             // Also flag all 6 neighbours for update as well
