@@ -14,7 +14,7 @@ namespace Antymology.Terrain
         /// <summary>
         /// The prefab containing the ant.
         /// </summary>
-        public GameObject antPrefab;
+        public GameObject AntVariant;
 
         /// <summary>
         /// The material used for eech block.
@@ -40,6 +40,14 @@ namespace Antymology.Terrain
         /// Random number generator.
         /// </summary>
         private SimplexNoise SimplexNoise;
+
+        #endregion
+
+
+        #region MyFields
+        //List of ants
+        public List<AntLogic> Ants = new List<AntLogic>();
+        public int antsToGenerate; 
 
         #endregion
 
@@ -89,11 +97,27 @@ namespace Antymology.Terrain
         private void GenerateAnts()
         {
             //throw new NotImplementedException();
-            GameObject ant = GameObject.Instantiate(antPrefab);
-            ant.transform.position = new Vector3(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter / 4 + RNG.Next(-5, 5),
-    ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter,
-    ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter / 4 + RNG.Next(-5, 5)
-    );
+            for (int i = 0; i < antsToGenerate; i++)
+            {
+                GameObject ant = GameObject.Instantiate(AntVariant);
+                AntLogic antLogic = ant.GetComponent<AntLogic>();
+
+                int xPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ));
+                int yPos = ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter;
+                int zPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter));
+
+                var boxToTest = new Vector3(xPos, yPos, zPos);
+
+               // while (Blocks[(int)boxToTest.x, (int)boxToTest.y, (int)boxToTest.z] is AirBlock)
+               while(GetBlock((int)boxToTest.x, (int)boxToTest.y,(int)boxToTest.z).GetType() == typeof(AirBlock))
+                {
+                    boxToTest.y --; 
+                }
+                boxToTest.y += 0.5f;
+                antLogic.antPosition = boxToTest;
+                ant.transform.position{set } //position(boxToTest.x, boxToTest.y,boxToTest.z);
+                Ants.Add(antLogic);
+            }
 
         }
 

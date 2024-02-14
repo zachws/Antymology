@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Antymology.Terrain;
+
 
 /*
  * This file is used to hold information pertinent to a particular ant. (i.e., object which holds all of the information for 1 ant) 
@@ -25,9 +27,8 @@ using UnityEngine;
  *          //Decrease Health each Time Step 
  */
 
-namespace Antymology.Agents
-{
-    public class AntInformation : MonoBehaviour
+
+    public class AntLogic : MonoBehaviour
     {
         //Serialize to make private variables accessible in Unity editor without making them public 
         [SerializeField]
@@ -39,9 +40,13 @@ namespace Antymology.Agents
         [SerializeField]
         private float timer;
         [SerializeField]
-        private Vector3 antPosition;
+        public Vector3 antPosition;
         [SerializeField]
-        private bool queen; 
+        private bool queen;
+
+
+/*        public GameObject mesh;
+        public Material[] materials; */
         
         // Start is called before the first frame update
         void Start()
@@ -49,11 +54,12 @@ namespace Antymology.Agents
             //At the start of the ant creation, set their health to the startingHealth constant (will change as I progress through the assignment) 
             this.antHealth = startingHealth;
             //Initialize the timer to zero, will base timeStep off of timers difference from the current local time 
-            this.timer = 0.0f; 
-            //Create ant body 
-                //Need to create prefab so that I can actually use the AntBody provided and create a physical entity within the world 
+            this.timer = 0.0f;
+        //Create ant body 
+        //Need to create prefab so that I can actually use the AntBody provided and create a physical entity within the world 
+            // mesh.GetComponent<SkinnedMeshRenderer>().material = materials[1];
 
-        }
+    }
 
         // Update is called once per frame
         void Update()
@@ -66,6 +72,7 @@ namespace Antymology.Agents
                 KillAnt();
             }
             //update time step??
+            transform.position = this.antPosition;
         }
 
         private void KillAnt()
@@ -101,4 +108,4 @@ namespace Antymology.Agents
         //Queen logic after I get regular ant movement working (may as well just have states for queen rather than a separate C# file - not sure if this is better or worse programming, probably less modular) 
 
     }
-}
+

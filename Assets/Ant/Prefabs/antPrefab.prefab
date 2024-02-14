@@ -3980,6 +3980,7 @@ GameObject:
   - component: {fileID: 489948}
   - component: {fileID: 9559440}
   - component: {fileID: 11494472}
+  - component: {fileID: 7272072422582137809}
   m_Layer: 0
   m_Name: antPrefab
   m_TagString: Untagged
@@ -4045,6 +4046,22 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 82eae9ec75def4545bd6c40caee83064, type: 2}
   - {fileID: 2100000, guid: 59252f18e19bace4f806bf2d5a243989, type: 2}
+--- !u!114 &7272072422582137809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a54d2b67827041b79416060b2f352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  antHealth: 0
+  timer: 0
+  antPosition: {x: 0, y: 0, z: 0}
+  queen: 0
 --- !u!1 &174600
 GameObject:
   m_ObjectHideFlags: 0
