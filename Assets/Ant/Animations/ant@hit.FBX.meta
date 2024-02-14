@@ -1,0 +1,769 @@
+fileFormatVersion: 2
+guid: 0084c7e5cb317b54d8df720281747f56
+timeCreated: 1527533005
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Ant
+    100002: //RootNode
+    100004: ant_COM_ctrl
+    100006: ant_l_Abdomen-nub_bone
+    100008: ant_l_Abdomen_bone
+    100010: ant_l_Abdomen_ctrl
+    100012: ant_l_Antenna1_bone
+    100014: ant_l_Antenna1_ctrl
+    100016: ant_l_Antenna2_bone
+    100018: ant_l_Antenna2_ctrl
+    100020: ant_l_Antenna3_bone
+    100022: ant_l_Antenna3_ctrl
+    100024: ant_l_Antenna4_bone
+    100026: ant_l_Antenna4_ctrl
+    100028: ant_l_Antenna5_bone
+    100030: ant_l_Antenna5_ctrl
+    100032: ant_l_Antenna6_bone
+    100034: ant_l_Antenna6_ctrl
+    100036: ant_l_Antenna7-nub_bone
+    100038: ant_l_Antenna7_bone
+    100040: ant_l_Antenna7_ctrl
+    100042: ant_l_Antenna8_ctrl
+    100044: ant_l_ball1_IKGoal
+    100046: ant_l_ball2_IKGoal
+    100048: ant_l_ball3_IKGoal
+    100050: ant_l_Coxa1_bone
+    100052: ant_l_Coxa1_ctrl
+    100054: ant_l_Coxa2_bone
+    100056: ant_l_Coxa2_ctrl
+    100058: ant_l_Coxa3_bone
+    100060: ant_l_Coxa3_ctrl
+    100062: ant_l_Femur1_bone
+    100064: ant_l_Femur2_bone
+    100066: ant_l_Femur3_bone
+    100068: ant_l_Foot1_ctrl
+    100070: ant_l_Foot2_ctrl
+    100072: ant_l_Foot3_ctrl
+    100074: ant_l_Head-nub_bone
+    100076: ant_l_Head_bone
+    100078: ant_l_Head_ctrl
+    100080: ant_l_heel1_IKGoal
+    100082: ant_l_heel2_IKGoal
+    100084: ant_l_heel3_IKGoal
+    100086: ant_l_HeelLift1_hlp
+    100088: ant_l_HeelLift2_hlp
+    100090: ant_l_HeelLift3_hlp
+    100092: ant_l_HeelPeel1_hlp
+    100094: ant_l_HeelPeel2_hlp
+    100096: ant_l_HeelPeel3_hlp
+    100098: ant_l_Mandible-nub_bone
+    100100: ant_l_Mandible_bone
+    100102: ant_l_Mandible_ctrl
+    100104: ant_l_Mesothorax_bone
+    100106: ant_l_Mesothorax_ctrl
+    100108: ant_l_Metatarsus1_bone
+    100110: ant_l_Metatarsus2_bone
+    100112: ant_l_Metatarsus3_bone
+    100114: ant_l_Petiole_bone
+    100116: ant_l_Petiole_ctrl
+    100118: ant_l_Pretarsus1-nub_bone
+    100120: ant_l_Pretarsus1_bone
+    100122: ant_l_Pretarsus2-nub_bone
+    100124: ant_l_Pretarsus2_bone
+    100126: ant_l_Pretarsus3-nub_bone
+    100128: ant_l_Pretarsus3_bone
+    100130: ant_l_Prothorax_bone
+    100132: ant_l_Prothorax_ctrl
+    100134: ant_l_Tarsus1_bone
+    100136: ant_l_tarsus1_IKGoal
+    100138: ant_l_Tarsus2_bone
+    100140: ant_l_tarsus2_IKGoal
+    100142: ant_l_Tarsus3_bone
+    100144: ant_l_tarsus3_IKGoal
+    100146: ant_l_TarsusTap1_hlp
+    100148: ant_l_TarsusTap2_hlp
+    100150: ant_l_TarsusTap3_hlp
+    100152: ant_l_Tibia1_bone
+    100154: ant_l_Tibia2_bone
+    100156: ant_l_Tibia3_bone
+    100158: ant_l_toe1_IKGoal
+    100160: ant_l_toe2_IKGoal
+    100162: ant_l_toe3_IKGoal
+    100164: ant_l_ToeLift1_hlp
+    100166: ant_l_ToeLift2_hlp
+    100168: ant_l_ToeLift3_hlp
+    100170: ant_l_ToeTap1_hlp
+    100172: ant_l_ToeTap2_hlp
+    100174: ant_l_ToeTap3_hlp
+    100176: ant_Main_ctrl
+    100178: ant_r_Antenna1_bone
+    100180: ant_r_Antenna1_ctrl
+    100182: ant_r_Antenna2_bone
+    100184: ant_r_Antenna2_ctrl
+    100186: ant_r_Antenna3_bone
+    100188: ant_r_Antenna3_ctrl
+    100190: ant_r_Antenna4_bone
+    100192: ant_r_Antenna4_ctrl
+    100194: ant_r_Antenna5_bone
+    100196: ant_r_Antenna5_ctrl
+    100198: ant_r_Antenna6_bone
+    100200: ant_r_Antenna6_ctrl
+    100202: ant_r_Antenna7-nub_bone
+    100204: ant_r_Antenna7_bone
+    100206: ant_r_Antenna7_ctrl
+    100208: ant_r_Antenna8_ctrl
+    100210: ant_r_ball1_IKGoal
+    100212: ant_r_ball2_IKGoal
+    100214: ant_r_ball3_IKGoal
+    100216: ant_r_Coxa1_bone
+    100218: ant_r_Coxa1_ctrl
+    100220: ant_r_Coxa2_bone
+    100222: ant_r_Coxa2_ctrl
+    100224: ant_r_Coxa3_bone
+    100226: ant_r_Coxa3_ctrl
+    100228: ant_r_Femur1_bone
+    100230: ant_r_Femur2_bone
+    100232: ant_r_Femur3_bone
+    100234: ant_r_Foot1_ctrl
+    100236: ant_r_Foot2_ctrl
+    100238: ant_r_Foot3_ctrl
+    100240: ant_r_heel1_IKGoal
+    100242: ant_r_heel2_IKGoal
+    100244: ant_r_heel3_IKGoal
+    100246: ant_r_HeelLift1_hlp
+    100248: ant_r_HeelLift2_hlp
+    100250: ant_r_HeelLift3_hlp
+    100252: ant_r_HeelPeel1_hlp
+    100254: ant_r_HeelPeel2_hlp
+    100256: ant_r_HeelPeel3_hlp
+    100258: ant_r_Mandible-nub_bone
+    100260: ant_r_Mandible_bone
+    100262: ant_r_Mandible_ctrl
+    100264: ant_r_Metatarsus1_bone
+    100266: ant_r_Metatarsus2_bone
+    100268: ant_r_Metatarsus3_bone
+    100270: ant_r_Pretarsus1-nub_bone
+    100272: ant_r_Pretarsus1_bone
+    100274: ant_r_Pretarsus2-nub_bone
+    100276: ant_r_Pretarsus2_bone
+    100278: ant_r_Pretarsus3-nub_bone
+    100280: ant_r_Pretarsus3_bone
+    100282: ant_r_Tarsus1_bone
+    100284: ant_r_tarsus1_IKGoal
+    100286: ant_r_Tarsus2_bone
+    100288: ant_r_tarsus2_IKGoal
+    100290: ant_r_Tarsus3_bone
+    100292: ant_r_tarsus3_IKGoal
+    100294: ant_r_TarsusTap1_hlp
+    100296: ant_r_TarsusTap2_hlp
+    100298: ant_r_TarsusTap3_hlp
+    100300: ant_r_Tibia1_bone
+    100302: ant_r_Tibia2_bone
+    100304: ant_r_Tibia3_bone
+    100306: ant_r_toe1_IKGoal
+    100308: ant_r_toe2_IKGoal
+    100310: ant_r_toe3_IKGoal
+    100312: ant_r_ToeLift1_hlp
+    100314: ant_r_ToeLift2_hlp
+    100316: ant_r_ToeLift3_hlp
+    100318: ant_r_ToeTap1_hlp
+    100320: ant_r_ToeTap2_hlp
+    100322: ant_r_ToeTap3_hlp
+    400000: Ant
+    400002: //RootNode
+    400004: ant_COM_ctrl
+    400006: ant_l_Abdomen-nub_bone
+    400008: ant_l_Abdomen_bone
+    400010: ant_l_Abdomen_ctrl
+    400012: ant_l_Antenna1_bone
+    400014: ant_l_Antenna1_ctrl
+    400016: ant_l_Antenna2_bone
+    400018: ant_l_Antenna2_ctrl
+    400020: ant_l_Antenna3_bone
+    400022: ant_l_Antenna3_ctrl
+    400024: ant_l_Antenna4_bone
+    400026: ant_l_Antenna4_ctrl
+    400028: ant_l_Antenna5_bone
+    400030: ant_l_Antenna5_ctrl
+    400032: ant_l_Antenna6_bone
+    400034: ant_l_Antenna6_ctrl
+    400036: ant_l_Antenna7-nub_bone
+    400038: ant_l_Antenna7_bone
+    400040: ant_l_Antenna7_ctrl
+    400042: ant_l_Antenna8_ctrl
+    400044: ant_l_ball1_IKGoal
+    400046: ant_l_ball2_IKGoal
+    400048: ant_l_ball3_IKGoal
+    400050: ant_l_Coxa1_bone
+    400052: ant_l_Coxa1_ctrl
+    400054: ant_l_Coxa2_bone
+    400056: ant_l_Coxa2_ctrl
+    400058: ant_l_Coxa3_bone
+    400060: ant_l_Coxa3_ctrl
+    400062: ant_l_Femur1_bone
+    400064: ant_l_Femur2_bone
+    400066: ant_l_Femur3_bone
+    400068: ant_l_Foot1_ctrl
+    400070: ant_l_Foot2_ctrl
+    400072: ant_l_Foot3_ctrl
+    400074: ant_l_Head-nub_bone
+    400076: ant_l_Head_bone
+    400078: ant_l_Head_ctrl
+    400080: ant_l_heel1_IKGoal
+    400082: ant_l_heel2_IKGoal
+    400084: ant_l_heel3_IKGoal
+    400086: ant_l_HeelLift1_hlp
+    400088: ant_l_HeelLift2_hlp
+    400090: ant_l_HeelLift3_hlp
+    400092: ant_l_HeelPeel1_hlp
+    400094: ant_l_HeelPeel2_hlp
+    400096: ant_l_HeelPeel3_hlp
+    400098: ant_l_Mandible-nub_bone
+    400100: ant_l_Mandible_bone
+    400102: ant_l_Mandible_ctrl
+    400104: ant_l_Mesothorax_bone
+    400106: ant_l_Mesothorax_ctrl
+    400108: ant_l_Metatarsus1_bone
+    400110: ant_l_Metatarsus2_bone
+    400112: ant_l_Metatarsus3_bone
+    400114: ant_l_Petiole_bone
+    400116: ant_l_Petiole_ctrl
+    400118: ant_l_Pretarsus1-nub_bone
+    400120: ant_l_Pretarsus1_bone
+    400122: ant_l_Pretarsus2-nub_bone
+    400124: ant_l_Pretarsus2_bone
+    400126: ant_l_Pretarsus3-nub_bone
+    400128: ant_l_Pretarsus3_bone
+    400130: ant_l_Prothorax_bone
+    400132: ant_l_Prothorax_ctrl
+    400134: ant_l_Tarsus1_bone
+    400136: ant_l_tarsus1_IKGoal
+    400138: ant_l_Tarsus2_bone
+    400140: ant_l_tarsus2_IKGoal
+    400142: ant_l_Tarsus3_bone
+    400144: ant_l_tarsus3_IKGoal
+    400146: ant_l_TarsusTap1_hlp
+    400148: ant_l_TarsusTap2_hlp
+    400150: ant_l_TarsusTap3_hlp
+    400152: ant_l_Tibia1_bone
+    400154: ant_l_Tibia2_bone
+    400156: ant_l_Tibia3_bone
+    400158: ant_l_toe1_IKGoal
+    400160: ant_l_toe2_IKGoal
+    400162: ant_l_toe3_IKGoal
+    400164: ant_l_ToeLift1_hlp
+    400166: ant_l_ToeLift2_hlp
+    400168: ant_l_ToeLift3_hlp
+    400170: ant_l_ToeTap1_hlp
+    400172: ant_l_ToeTap2_hlp
+    400174: ant_l_ToeTap3_hlp
+    400176: ant_Main_ctrl
+    400178: ant_r_Antenna1_bone
+    400180: ant_r_Antenna1_ctrl
+    400182: ant_r_Antenna2_bone
+    400184: ant_r_Antenna2_ctrl
+    400186: ant_r_Antenna3_bone
+    400188: ant_r_Antenna3_ctrl
+    400190: ant_r_Antenna4_bone
+    400192: ant_r_Antenna4_ctrl
+    400194: ant_r_Antenna5_bone
+    400196: ant_r_Antenna5_ctrl
+    400198: ant_r_Antenna6_bone
+    400200: ant_r_Antenna6_ctrl
+    400202: ant_r_Antenna7-nub_bone
+    400204: ant_r_Antenna7_bone
+    400206: ant_r_Antenna7_ctrl
+    400208: ant_r_Antenna8_ctrl
+    400210: ant_r_ball1_IKGoal
+    400212: ant_r_ball2_IKGoal
+    400214: ant_r_ball3_IKGoal
+    400216: ant_r_Coxa1_bone
+    400218: ant_r_Coxa1_ctrl
+    400220: ant_r_Coxa2_bone
+    400222: ant_r_Coxa2_ctrl
+    400224: ant_r_Coxa3_bone
+    400226: ant_r_Coxa3_ctrl
+    400228: ant_r_Femur1_bone
+    400230: ant_r_Femur2_bone
+    400232: ant_r_Femur3_bone
+    400234: ant_r_Foot1_ctrl
+    400236: ant_r_Foot2_ctrl
+    400238: ant_r_Foot3_ctrl
+    400240: ant_r_heel1_IKGoal
+    400242: ant_r_heel2_IKGoal
+    400244: ant_r_heel3_IKGoal
+    400246: ant_r_HeelLift1_hlp
+    400248: ant_r_HeelLift2_hlp
+    400250: ant_r_HeelLift3_hlp
+    400252: ant_r_HeelPeel1_hlp
+    400254: ant_r_HeelPeel2_hlp
+    400256: ant_r_HeelPeel3_hlp
+    400258: ant_r_Mandible-nub_bone
+    400260: ant_r_Mandible_bone
+    400262: ant_r_Mandible_ctrl
+    400264: ant_r_Metatarsus1_bone
+    400266: ant_r_Metatarsus2_bone
+    400268: ant_r_Metatarsus3_bone
+    400270: ant_r_Pretarsus1-nub_bone
+    400272: ant_r_Pretarsus1_bone
+    400274: ant_r_Pretarsus2-nub_bone
+    400276: ant_r_Pretarsus2_bone
+    400278: ant_r_Pretarsus3-nub_bone
+    400280: ant_r_Pretarsus3_bone
+    400282: ant_r_Tarsus1_bone
+    400284: ant_r_tarsus1_IKGoal
+    400286: ant_r_Tarsus2_bone
+    400288: ant_r_tarsus2_IKGoal
+    400290: ant_r_Tarsus3_bone
+    400292: ant_r_tarsus3_IKGoal
+    400294: ant_r_TarsusTap1_hlp
+    400296: ant_r_TarsusTap2_hlp
+    400298: ant_r_TarsusTap3_hlp
+    400300: ant_r_Tibia1_bone
+    400302: ant_r_Tibia2_bone
+    400304: ant_r_Tibia3_bone
+    400306: ant_r_toe1_IKGoal
+    400308: ant_r_toe2_IKGoal
+    400310: ant_r_toe3_IKGoal
+    400312: ant_r_ToeLift1_hlp
+    400314: ant_r_ToeLift2_hlp
+    400316: ant_r_ToeLift3_hlp
+    400318: ant_r_ToeTap1_hlp
+    400320: ant_r_ToeTap2_hlp
+    400322: ant_r_ToeTap3_hlp
+    2300000: ant_l_Foot1_ctrl
+    2300002: ant_l_Foot2_ctrl
+    2300004: ant_l_Foot3_ctrl
+    2300006: ant_r_Foot1_ctrl
+    2300008: ant_r_Foot2_ctrl
+    2300010: ant_r_Foot3_ctrl
+    3300000: ant_l_Foot1_ctrl
+    3300002: ant_l_Foot2_ctrl
+    3300004: ant_l_Foot3_ctrl
+    3300006: ant_r_Foot1_ctrl
+    3300008: ant_r_Foot2_ctrl
+    3300010: ant_r_Foot3_ctrl
+    4300000: Ant
+    4300002: ant_l_Foot1_ctrl
+    4300004: ant_l_Foot2_ctrl
+    4300006: ant_l_Foot3_ctrl
+    4300008: ant_r_Foot1_ctrl
+    4300010: ant_r_Foot2_ctrl
+    4300012: ant_r_Foot3_ctrl
+    7400000: hit
+    9500000: //RootNode
+    13700000: Ant
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: hit
+      takeName: Take 001
+      firstFrame: 613
+      lastFrame: 631
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Ant
+        weight: 1
+      - path: ant_l_Head_ctrl
+        weight: 1
+      - path: ant_l_Mesothorax_ctrl
+        weight: 1
+      - path: ant_l_Prothorax_ctrl
+        weight: 1
+      - path: ant_Main_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone/ant_l_Tibia2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone/ant_l_Tibia2_bone/ant_l_Tarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone/ant_l_Tibia2_bone/ant_l_Tarsus2_bone/ant_l_Metatarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone/ant_l_Tibia2_bone/ant_l_Tarsus2_bone/ant_l_Metatarsus2_bone/ant_l_Pretarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_bone/ant_l_Femur2_bone/ant_l_Tibia2_bone/ant_l_Tarsus2_bone/ant_l_Metatarsus2_bone/ant_l_Pretarsus2_bone/ant_l_Pretarsus2-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone/ant_l_Tibia3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone/ant_l_Tibia3_bone/ant_l_Tarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone/ant_l_Tibia3_bone/ant_l_Tarsus3_bone/ant_l_Metatarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone/ant_l_Tibia3_bone/ant_l_Tarsus3_bone/ant_l_Metatarsus3_bone/ant_l_Pretarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_bone/ant_l_Femur3_bone/ant_l_Tibia3_bone/ant_l_Tarsus3_bone/ant_l_Metatarsus3_bone/ant_l_Pretarsus3_bone/ant_l_Pretarsus3-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Coxa3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone/ant_l_Tibia1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone/ant_l_Tibia1_bone/ant_l_Tarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone/ant_l_Tibia1_bone/ant_l_Tarsus1_bone/ant_l_Metatarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone/ant_l_Tibia1_bone/ant_l_Tarsus1_bone/ant_l_Metatarsus1_bone/ant_l_Pretarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_bone/ant_l_Femur1_bone/ant_l_Tibia1_bone/ant_l_Tarsus1_bone/ant_l_Metatarsus1_bone/ant_l_Pretarsus1_bone/ant_l_Pretarsus1-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Coxa1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone/ant_l_Antenna4_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone/ant_l_Antenna4_bone/ant_l_Antenna5_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone/ant_l_Antenna4_bone/ant_l_Antenna5_bone/ant_l_Antenna6_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone/ant_l_Antenna4_bone/ant_l_Antenna5_bone/ant_l_Antenna6_bone/ant_l_Antenna7_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_bone/ant_l_Antenna2_bone/ant_l_Antenna3_bone/ant_l_Antenna4_bone/ant_l_Antenna5_bone/ant_l_Antenna6_bone/ant_l_Antenna7_bone/ant_l_Antenna7-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl/ant_l_Antenna4_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl/ant_l_Antenna4_ctrl/ant_l_Antenna5_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl/ant_l_Antenna4_ctrl/ant_l_Antenna5_ctrl/ant_l_Antenna6_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl/ant_l_Antenna4_ctrl/ant_l_Antenna5_ctrl/ant_l_Antenna6_ctrl/ant_l_Antenna7_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Antenna1_ctrl/ant_l_Antenna2_ctrl/ant_l_Antenna3_ctrl/ant_l_Antenna4_ctrl/ant_l_Antenna5_ctrl/ant_l_Antenna6_ctrl/ant_l_Antenna7_ctrl/ant_l_Antenna8_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Head-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Mandible_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Mandible_bone/ant_l_Mandible-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_l_Mandible_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone/ant_r_Antenna4_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone/ant_r_Antenna4_bone/ant_r_Antenna5_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone/ant_r_Antenna4_bone/ant_r_Antenna5_bone/ant_r_Antenna6_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone/ant_r_Antenna4_bone/ant_r_Antenna5_bone/ant_r_Antenna6_bone/ant_r_Antenna7_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_bone/ant_r_Antenna2_bone/ant_r_Antenna3_bone/ant_r_Antenna4_bone/ant_r_Antenna5_bone/ant_r_Antenna6_bone/ant_r_Antenna7_bone/ant_r_Antenna7-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl/ant_r_Antenna4_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl/ant_r_Antenna4_ctrl/ant_r_Antenna5_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl/ant_r_Antenna4_ctrl/ant_r_Antenna5_ctrl/ant_r_Antenna6_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl/ant_r_Antenna4_ctrl/ant_r_Antenna5_ctrl/ant_r_Antenna6_ctrl/ant_r_Antenna7_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Antenna1_ctrl/ant_r_Antenna2_ctrl/ant_r_Antenna3_ctrl/ant_r_Antenna4_ctrl/ant_r_Antenna5_ctrl/ant_r_Antenna6_ctrl/ant_r_Antenna7_ctrl/ant_r_Antenna8_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Mandible_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Mandible_bone/ant_r_Mandible-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_l_Head_bone/ant_r_Mandible_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone/ant_r_Tibia1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone/ant_r_Tibia1_bone/ant_r_Tarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone/ant_r_Tibia1_bone/ant_r_Tarsus1_bone/ant_r_Metatarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone/ant_r_Tibia1_bone/ant_r_Tarsus1_bone/ant_r_Metatarsus1_bone/ant_r_Pretarsus1_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_bone/ant_r_Femur1_bone/ant_r_Tibia1_bone/ant_r_Tarsus1_bone/ant_r_Metatarsus1_bone/ant_r_Pretarsus1_bone/ant_r_Pretarsus1-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_l_Prothorax_bone/ant_r_Coxa1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone/ant_r_Tibia2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone/ant_r_Tibia2_bone/ant_r_Tarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone/ant_r_Tibia2_bone/ant_r_Tarsus2_bone/ant_r_Metatarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone/ant_r_Tibia2_bone/ant_r_Tarsus2_bone/ant_r_Metatarsus2_bone/ant_r_Pretarsus2_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_bone/ant_r_Femur2_bone/ant_r_Tibia2_bone/ant_r_Tarsus2_bone/ant_r_Metatarsus2_bone/ant_r_Pretarsus2_bone/ant_r_Pretarsus2-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone/ant_r_Tibia3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone/ant_r_Tibia3_bone/ant_r_Tarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone/ant_r_Tibia3_bone/ant_r_Tarsus3_bone/ant_r_Metatarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone/ant_r_Tibia3_bone/ant_r_Tarsus3_bone/ant_r_Metatarsus3_bone/ant_r_Pretarsus3_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_bone/ant_r_Femur3_bone/ant_r_Tibia3_bone/ant_r_Tarsus3_bone/ant_r_Metatarsus3_bone/ant_r_Pretarsus3_bone/ant_r_Pretarsus3-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Mesothorax_bone/ant_r_Coxa3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Petiole_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Petiole_bone/ant_l_Abdomen_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Petiole_bone/ant_l_Abdomen_bone/ant_l_Abdomen-nub_bone
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Petiole_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_COM_ctrl/ant_l_Petiole_ctrl/ant_l_Abdomen_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_HeelPeel1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_HeelPeel1_hlp/ant_l_ball1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_HeelPeel1_hlp/ant_l_heel1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_ToeTap1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_ToeTap1_hlp/ant_l_tarsus1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_ToeTap1_hlp/ant_l_TarsusTap1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot1_ctrl/ant_l_HeelLift1_hlp/ant_l_ToeLift1_hlp/ant_l_ToeTap1_hlp/ant_l_TarsusTap1_hlp/ant_l_toe1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_HeelPeel2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_HeelPeel2_hlp/ant_l_ball2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_HeelPeel2_hlp/ant_l_heel2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_ToeTap2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_ToeTap2_hlp/ant_l_tarsus2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_ToeTap2_hlp/ant_l_TarsusTap2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot2_ctrl/ant_l_HeelLift2_hlp/ant_l_ToeLift2_hlp/ant_l_ToeTap2_hlp/ant_l_TarsusTap2_hlp/ant_l_toe2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_HeelPeel3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_HeelPeel3_hlp/ant_l_ball3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_HeelPeel3_hlp/ant_l_heel3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_ToeTap3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_ToeTap3_hlp/ant_l_tarsus3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_ToeTap3_hlp/ant_l_TarsusTap3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_l_Foot3_ctrl/ant_l_HeelLift3_hlp/ant_l_ToeLift3_hlp/ant_l_ToeTap3_hlp/ant_l_TarsusTap3_hlp/ant_l_toe3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_HeelPeel1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_HeelPeel1_hlp/ant_r_ball1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_HeelPeel1_hlp/ant_r_heel1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_ToeTap1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_ToeTap1_hlp/ant_r_tarsus1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_ToeTap1_hlp/ant_r_TarsusTap1_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot1_ctrl/ant_r_HeelLift1_hlp/ant_r_ToeLift1_hlp/ant_r_ToeTap1_hlp/ant_r_TarsusTap1_hlp/ant_r_toe1_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_HeelPeel2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_HeelPeel2_hlp/ant_r_ball2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_HeelPeel2_hlp/ant_r_heel2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_ToeTap2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_ToeTap2_hlp/ant_r_tarsus2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_ToeTap2_hlp/ant_r_TarsusTap2_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot2_ctrl/ant_r_HeelLift2_hlp/ant_r_ToeLift2_hlp/ant_r_ToeTap2_hlp/ant_r_TarsusTap2_hlp/ant_r_toe2_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_HeelPeel3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_HeelPeel3_hlp/ant_r_ball3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_HeelPeel3_hlp/ant_r_heel3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_ToeTap3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_ToeTap3_hlp/ant_r_tarsus3_IKGoal
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_ToeTap3_hlp/ant_r_TarsusTap3_hlp
+        weight: 1
+      - path: ant_Main_ctrl/ant_r_Foot3_ctrl/ant_r_HeelLift3_hlp/ant_r_ToeLift3_hlp/ant_r_ToeTap3_hlp/ant_r_TarsusTap3_hlp/ant_r_toe3_IKGoal
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 613
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: ant_Main_ctrl
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

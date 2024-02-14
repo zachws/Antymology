@@ -88,7 +88,13 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            GameObject ant = GameObject.Instantiate(antPrefab);
+            ant.transform.position = new Vector3(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter / 4 + RNG.Next(-5, 5),
+    ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter,
+    ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter / 4 + RNG.Next(-5, 5)
+    );
+
         }
 
         #endregion
