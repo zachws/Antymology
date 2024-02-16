@@ -102,9 +102,10 @@ namespace Antymology.Terrain
                 GameObject ant = GameObject.Instantiate(AntVariant);
                 AntLogic antLogic = ant.GetComponent<AntLogic>();
 
-                int xPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ));
+                int xPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ));
                 int yPos = ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter;
-                int zPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter));
+                //int zPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter));
+                int zPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter));
 
                 var boxToTest = new Vector3(xPos, yPos, zPos);
 
@@ -115,7 +116,7 @@ namespace Antymology.Terrain
                 }
                 boxToTest.y += 0.5f;
                 antLogic.antPosition = boxToTest;
-                ant.transform.position{set } //position(boxToTest.x, boxToTest.y,boxToTest.z);
+                //ant.transform.position{set } //position(boxToTest.x, boxToTest.y,boxToTest.z);
                 Ants.Add(antLogic);
             }
 
