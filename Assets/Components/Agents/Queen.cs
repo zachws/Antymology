@@ -29,6 +29,15 @@ public class Queen : AntLogic
     // Update is called once per frame
     void Update()
     {
+        Vector3 currPos = this.CurrentPosition();
+        string currLevel = this.GetBlock(BLOCK_LEVEL, currPos);
+        bool isAcidic = false;
+        //decrease health every frame? or should it happen differently? 
+        if (currLevel == ACIDIC_BLOCK)
+        {
+            isAcidic = true;
+        }
+        this.DecreaseHealth(isAcidic);
         //GetBlock();
 
         //Move();
