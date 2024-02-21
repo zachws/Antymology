@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntColony : MonoBehaviour
+public class Queen : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

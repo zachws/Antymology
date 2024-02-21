@@ -318,6 +318,12 @@ public class AntLogic : MonoBehaviour
             //dig block stub
         }
 
+        private void DonateHealth()
+        {
+            throw new NotImplementedException ();
+            //stub for donating to the queen 
+        }
+
         private void TimeStepActions()
         {
             //time step action stub
