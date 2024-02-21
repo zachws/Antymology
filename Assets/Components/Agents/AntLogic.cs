@@ -34,7 +34,7 @@ public class AntLogic : MonoBehaviour
         public WorldManager myWorldManager; 
         //Serialize to make private variables accessible in Unity editor without making them public 
         [SerializeField]
-        private static float startingHealth = 100.0f;
+        private static float startingHealth = 5000.0f;
         [SerializeField]
         public float antHealth;
         [SerializeField]
@@ -45,6 +45,8 @@ public class AntLogic : MonoBehaviour
         public Vector3 antPosition;
         [SerializeField]
         public List<Vector3> possibleMovementChoices;
+    [SerializeField]
+    private int amtOfTimesHealthSharedWithQueen = 0; 
 
         public static int BLOCK_LEVEL = 0;
         public static int BLOCK_BELOW = 1;
@@ -91,6 +93,17 @@ public class AntLogic : MonoBehaviour
                 KillAnt();
             }*/
             Move();
+
+        //TESTING SHARE HEALTH
+        //
+        List<AntLogic> antList = WorldManager.Instance.Ants;
+        Vector3 queenPos = WorldManager.Instance.queenLogic.CurrentPosition();
+        queenPos.y += 0.5f; 
+        antList[0].transform.position =queenPos;
+        DonateHealth(); 
+
+
+
             //DigBlock(); 
             //update time step??
 
@@ -125,12 +138,12 @@ public class AntLogic : MonoBehaviour
         List<Vector3> allPositionChoices = new List<Vector3>(); 
         List<Vector3> validPositionChoices = new List<Vector3>();
 
-        Debug.Log($"Current Ant Position: x: {currentPosition.x}, y: {currentPosition.y}, z: {currentPosition.z}");
+        //Debug.Log($"Current Ant Position: x: {currentPosition.x}, y: {currentPosition.y}, z: {currentPosition.z}");
 
 
         //check forward (i.e., x + 1) 
         Vector3 forwardPosition = new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z);
-        Debug.Log($"forward applied, now position is: x: {forwardPosition.x}, y: {forwardPosition.y}, z: {forwardPosition.z}");
+        //Debug.Log($"forward applied, now position is: x: {forwardPosition.x}, y: {forwardPosition.y}, z: {forwardPosition.z}");
         allPositionChoices.Add(new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z));
         //check backward (i.e., x - 1)
         allPositionChoices.Add(new Vector3(currentPosition.x - 1, currentPosition.y, currentPosition.z));
@@ -303,7 +316,19 @@ public class AntLogic : MonoBehaviour
 
         private void DonateHealth()
         {
-            throw new NotImplementedException ();
+        float distanceFromQueen;
+        Vector3 queenPosition = WorldManager.Instance.queenLogic.CurrentPosition();
+        Vector3 antPosition = this.CurrentPosition();
+
+        distanceFromQueen = Vector3.Distance(queenPosition, antPosition);
+        if(distanceFromQueen <= 2 && this.antHealth >= 1500.0f)
+        {
+            amtOfTimesHealthSharedWithQueen += 1;
+            WorldManager.Instance.queenLogic.antHealth += 500.0f;
+            this.antHealth -= 500.0f;
+
+        }
+            //throw new NotImplementedException ();
             //stub for donating to the queen 
         }
 

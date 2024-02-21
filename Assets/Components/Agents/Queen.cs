@@ -8,11 +8,11 @@ using UnityEngine.Scripting.APIUpdating;
 public class Queen : AntLogic
 {
     [SerializeField]
-    private static float startingHealth = 1000.0f;
+    private static float startingHealth = 7500.0f;
     [SerializeField]
     private static float queenHealth;
     [SerializeField]
-    private static float maxQueenHealth = 1000.0f;
+    private static float maxQueenHealth = 15000.0f;
     // Start is called before the first frame update
     [SerializeField]
     public Vector3 queenPosition;
@@ -32,7 +32,7 @@ public class Queen : AntLogic
         //GetBlock();
 
         //Move();
-        BuildNestBlock();
+        //BuildNestBlock();
     }
 
     void BuildNestBlock()

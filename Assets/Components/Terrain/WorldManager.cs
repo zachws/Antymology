@@ -17,7 +17,8 @@ namespace Antymology.Terrain
         /// </summary>
         public GameObject AntVariant;
         public GameObject QueenVariant1;
-        public Material[] materials;
+        public Queen queenLogic;
+        //public Material[] materials;
 
         /// <summary>
         /// The material used for eech block.
@@ -145,7 +146,7 @@ namespace Antymology.Terrain
             //rend.material = AntB
             //rend.material.color = Color.black;
             
-            Queen queenLogic = thaQueen.GetComponent<Queen>();
+            queenLogic = thaQueen.GetComponent<Queen>();
             //queenLogic.GetComponent<MeshFilter>().mesh.color = Color.red;
             //queenLogic.GetComponent<MeshRenderer>().material.color = Color.red;
             //thaQueen.GetComponent<MeshRenderer>().material = materials[0];
