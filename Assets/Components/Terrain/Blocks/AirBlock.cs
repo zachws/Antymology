@@ -55,6 +55,9 @@ namespace Antymology.Terrain
             throw new NotImplementedException();
         }
 
+        //For ease of calling types later
+        public override string BlockType { get => "Air"; }
+
         #endregion
 
     }

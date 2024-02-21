@@ -40,6 +40,8 @@ namespace Antymology.Terrain
             return _isVisible;
         }
 
+        //For ease of calling types later
+        public override string BlockType { get => "Nest"; }
         #endregion
 
     }

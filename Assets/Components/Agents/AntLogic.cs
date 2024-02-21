@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Antymology.Terrain;
+using UnityEngine.UIElements;
 
 
 /*
@@ -28,8 +29,9 @@ using Antymology.Terrain;
  */
 
 
-    public class AntLogic : MonoBehaviour
+public class AntLogic : MonoBehaviour
     {
+    public WorldManager myWorldManager; 
         //Serialize to make private variables accessible in Unity editor without making them public 
         [SerializeField]
         private static float startingHealth = 100.0f;
@@ -43,21 +45,31 @@ using Antymology.Terrain;
         public Vector3 antPosition;
         [SerializeField]
         private bool queen;
+    [SerializeField]
+    public List<Vector3> possibleMovementChoices;
+
+    private static int BLOCK_LEVEL = 0;
+    private static int BLOCK_BELOW = 1;
+    private static int BLOCK_ABOVE = 2;
+    private static string AIR_BLOCK = "Air";
 
 
-/*        public GameObject mesh;
-        public Material[] materials; */
-        
-        // Start is called before the first frame update
-        void Start()
+    /*        public GameObject mesh;
+            public Material[] materials; */
+
+    private void Awake()
+    {
+        myWorldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
         {
             //At the start of the ant creation, set their health to the startingHealth constant (will change as I progress through the assignment) 
             this.antHealth = startingHealth;
             //Initialize the timer to zero, will base timeStep off of timers difference from the current local time 
             this.timer = 0.0f;
-        //Create ant body 
-        //Need to create prefab so that I can actually use the AntBody provided and create a physical entity within the world 
-            // mesh.GetComponent<SkinnedMeshRenderer>().material = materials[1];
+            possibleMovementChoices = new List<Vector3>();
 
     }
 
@@ -67,13 +79,202 @@ using Antymology.Terrain;
             //decrease health every frame? or should it happen differently? 
             DecreaseHealth();
             //check if the ant should die after health decrease 
-            if(this.antHealth <= 0.0f)
+/*            if(this.antHealth <= 0.0f)
             {
                 KillAnt();
-            }
+            }*/
+//Debug.Log
+            Move();
             //update time step??
-            transform.position = this.antPosition;
+
+            //had to do this so that the prefab coordinates would actually match the "ants coordinates" and display properly
+            //transform.position = this.antPosition;
         }
+
+    public void Move()
+    {
+        Debug.Log($"Ant Position before move: x: {this.transform.position.x}, y: {this.transform.position.y}, z: {this.transform.position.z}");
+        List<Vector3> validMovementChoices = GetValidMovements();
+        if (validMovementChoices.Count > 0 )
+        {
+            Vector3 blockToMoveTo = MakeRandomMovementChoice(validMovementChoices);
+            this.transform.position = blockToMoveTo;
+            this.antPosition = blockToMoveTo;
+        }
+        else
+        {
+           transform.position = this.transform.position;
+        }
+
+    }
+
+
+
+
+    private List<Vector3> GetValidMovements()
+    {
+        Vector3 currentPosition = CurrentPosition(); 
+
+        List<Vector3> allPositionChoices = new List<Vector3>(); 
+        List<Vector3> validPositionChoices = new List<Vector3>();
+
+        Debug.Log($"Current Ant Position: x: {currentPosition.x}, y: {currentPosition.y}, z: {currentPosition.z}");
+
+
+        //check forward (i.e., x + 1) 
+        Vector3 forwardPosition = new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z);
+        Debug.Log($"forward applied, now position is: x: {forwardPosition.x}, y: {forwardPosition.y}, z: {forwardPosition.z}");
+        allPositionChoices.Add(new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z));
+        //check backward (i.e., x - 1)
+        allPositionChoices.Add(new Vector3(currentPosition.x - 1, currentPosition.y, currentPosition.z));
+        //check left (i.e., z + 1) 
+        allPositionChoices.Add(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
+        //check right (i.e., z - 1)
+        allPositionChoices.Add(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 1));
+
+        //loop through each fd, bw, l,r movements for up and down possiblities ( y +- 1)
+        int count = allPositionChoices.Count;
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 checkPosition = allPositionChoices[i];
+            string currentLevel = GetBlock(BLOCK_LEVEL, checkPosition); 
+            Vector3 upPosition = new Vector3(checkPosition.x, checkPosition.y + 1, checkPosition.z);
+            string blockLevelUp = GetBlock(BLOCK_LEVEL, upPosition);
+            string blockUpUp = GetBlock(BLOCK_ABOVE, upPosition);
+            Vector3 downPosition = new Vector3(checkPosition.x, checkPosition.y - 1, checkPosition.z);
+            string blockLevelDown = GetBlock(BLOCK_LEVEL, downPosition);
+            //Debug.Log($"Current Level: {currentLevel}, x:{checkPosition.x} y:{checkPosition.y} z: {checkPosition.z};     Block Above: {currentUP} x: {upPosition.x} y: {upPosition.y} z: {upPosition.z};  Block Below: {currentDown} x: {downPosition.x} y: {downPosition.y} z: {downPosition.z}");
+
+            //check for upward movement
+            if (blockLevelUp != AIR_BLOCK && blockUpUp == AIR_BLOCK)
+            {
+                allPositionChoices.Add(new Vector3(checkPosition.x, checkPosition.y + 1, checkPosition.z));
+            }
+            //check for downward movement (i.e., y - 1)
+            if(blockLevelDown != AIR_BLOCK && currentLevel == AIR_BLOCK)
+            {
+                allPositionChoices.Add(new Vector3(checkPosition.x, checkPosition.y - 1, checkPosition.z));
+            }
+           
+        }
+        
+
+        foreach (var positionToCheck in allPositionChoices)
+        {
+            String blockLevel = GetBlock(BLOCK_LEVEL, positionToCheck);
+            String blockAbove = GetBlock(BLOCK_ABOVE, positionToCheck);
+            String blockBelow = GetBlock(BLOCK_BELOW, positionToCheck); 
+
+            if(blockAbove == AIR_BLOCK && blockLevel != AIR_BLOCK) //&& blockBelow != "Air")
+            {
+                validPositionChoices.Add(positionToCheck);
+            }
+
+        }
+
+        possibleMovementChoices = validPositionChoices;
+        //calling method will handle logic if list is/isn't populated
+        return validPositionChoices;
+    }
+
+
+    private string GetBlock(int blockChoice, Vector3 positionToCheck)
+    {
+        
+        //Vector3 currPosition = CurrentPosition(); 
+        int x = Mathf.RoundToInt(positionToCheck.x);
+        int z = Mathf.RoundToInt(positionToCheck.z);
+        String blockType = "";
+        AbstractBlock blockToCheck; 
+        if (blockChoice == BLOCK_LEVEL)
+        {
+            //Logic for block type at current level
+            int y = Mathf.RoundToInt(positionToCheck.y);
+            blockToCheck = WorldManager.Instance.GetBlock(x,y,z);
+            blockType = blockToCheck.BlockType; 
+
+        }
+        else if(blockChoice == BLOCK_BELOW) 
+        {
+            //Logic for block type above current position
+            int y = Mathf.RoundToInt(positionToCheck.y - 1);
+            blockToCheck = WorldManager.Instance.GetBlock(x, y, z);
+            blockType = blockToCheck.BlockType;
+        }
+        else if(blockChoice == BLOCK_ABOVE) 
+        { 
+            //Logic for block type below current position
+            int y = Mathf.RoundToInt(positionToCheck.y + 1);
+            blockToCheck = WorldManager.Instance.GetBlock(x, y, z);
+            blockType = blockToCheck.BlockType;
+        }
+        else
+        {
+            //this should never be reached
+
+            Debug.Log("Invalid block type choice");
+        }
+        return blockType; 
+
+    }
+
+    private Vector3 CurrentPosition()
+    {
+        Vector3 pos = this.transform.position;
+        pos.y = Mathf.Floor(pos.y);
+        return pos;
+    }
+
+   
+    private Vector3 MakeRandomMovementChoice(List<Vector3> validChoices)
+    {
+        Vector3 theChoice = validChoices[UnityEngine.Random.Range(0, validChoices.Count)];
+        theChoice.y = theChoice.y + 0.5f; //ant offset. 
+        return theChoice; //validChoices[UnityEngine.Random.Range(0, validChoices.Count - 1)];
+    }
+
+
+
+
+
+
+
+
+
+
+
+/*    private bool IsInBounds(Vector3 blockToCheck)
+    {
+        //WorldManager.Instance.GetBlock()
+        bool inBounds = false;
+
+        //Debug.Log($"X: {blockToCheck.worldXCoordinate}, Y: {blockToCheck.worldYCoordinate}, Z: {blockToCheck.worldZCoordinate}");
+        if (blockToCheck.x < 1.0f || blockToCheck.z < 1.0f || blockToCheck.y < 8.0f)
+        {
+            Debug.Log("First inbounds condition");
+            inBounds = false;
+        }
+        else if (blockToCheck.y >= ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter)
+        {
+            inBounds = false;
+            Debug.Log("Second inbounds condition");
+        }
+        else if (blockToCheck.x > ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter || blockToCheck.z >= ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter)
+        {
+            inBounds = false;
+            Debug.Log("Third inbounds condition");
+        }
+        else
+        {
+            inBounds = true;
+            Debug.Log("It is in bounds");
+        }
+
+        Debug.Log($"inbounds is {inBounds}");
+        return inBounds; 
+    }*/
+
+
 
         private void KillAnt()
         {

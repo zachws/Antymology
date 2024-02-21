@@ -96,28 +96,34 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            //throw new NotImplementedException();
             for (int i = 0; i < antsToGenerate; i++)
             {
+                //Create ant game object for each ant that is supposed to be created as selected/input in the worldManager script interface
                 GameObject ant = GameObject.Instantiate(AntVariant);
+                //get the ant logic (script) to be attached to the new ant game object so that they follow our predefined logic/rules. 
                 AntLogic antLogic = ant.GetComponent<AntLogic>();
 
+                //X position can be anything from 1 to the world diameter * chunk diameter
                 int xPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ));
+                //Y starts at the maximum (in the air) and falls down until a non-air block is found within bounds
                 int yPos = ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter;
-                //int zPos = UnityEngine.Random.Range(2, (ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter));
+                //Z position can be anything from 1 to the world diameter * chunk diameter
                 int zPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter));
 
+                //Create vector with these random coordinates so that we can look through the ants Y position such that it lands on top of a box after starting in the air at max height
                 var boxToTest = new Vector3(xPos, yPos, zPos);
 
-               // while (Blocks[(int)boxToTest.x, (int)boxToTest.y, (int)boxToTest.z] is AirBlock)
+               // While the block the ant is falling onto is an airblock we keep decrementing Y until the ant lands on a non-airblock type block 
                while(GetBlock((int)boxToTest.x, (int)boxToTest.y,(int)boxToTest.z).GetType() == typeof(AirBlock))
                 {
+                    //Ant is obviously still in the air so we need to decrement Y (so the ant falls) 
                     boxToTest.y --; 
                 }
-                boxToTest.y += 0.5f;
-                antLogic.antPosition = boxToTest;
-                //ant.transform.position{set } //position(boxToTest.x, boxToTest.y,boxToTest.z);
-                Ants.Add(antLogic);
+                boxToTest.y += 0.5f;//Cube offset so that ants spawn on top of cubes 
+                antLogic.antPosition = boxToTest;//set position
+                //update the actual gameobjects position so that it displays correctly (rather than in the air)
+                ant.transform.position = boxToTest;
+                Ants.Add(antLogic); //add this particular ant to the antLogic list named Ants
             }
 
         }
