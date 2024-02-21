@@ -82,8 +82,15 @@ public class AntLogic : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
+            Vector3 currPos = CurrentPosition();
+            string currLevel = GetBlock(BLOCK_LEVEL, currPos);
+            bool isAcidic = false; 
             //decrease health every frame? or should it happen differently? 
-            DecreaseHealth();
+            if(currLevel == ACIDIC_BLOCK)
+            {
+                isAcidic = true; 
+            }
+            DecreaseHealth(isAcidic);
             //check if the ant should die after health decrease 
 /*            if(this.antHealth <= 0.0f)
             {
@@ -317,10 +324,17 @@ public class AntLogic : MonoBehaviour
             throw new NotImplementedException();
         }
 
-        private void DecreaseHealth()
+        private void DecreaseHealth(bool isAcidic)
         {
             //This should decrease the ants health on each timestep 
-            this.antHealth -= decreaseAntHealthAmt; 
+            if (isAcidic == true)
+            {
+                this.antHealth -= 2 * decreaseAntHealthAmt;
+            }
+            else
+            {
+                this.antHealth -= decreaseAntHealthAmt;
+            }
         }
 
         //Queen logic after I get regular ant movement working (may as well just have states for queen rather than a separate C# file - not sure if this is better or worse programming, probably less modular) 
