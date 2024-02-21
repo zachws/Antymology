@@ -45,8 +45,12 @@ public class AntLogic : MonoBehaviour
         public Vector3 antPosition;
         [SerializeField]
         public List<Vector3> possibleMovementChoices;
-    [SerializeField]
-    private int amtOfTimesHealthSharedWithQueen = 0; 
+        [SerializeField]
+        private int amtOfTimesHealthSharedWithQueen = 0;
+        [SerializeField]
+        private int amtOfTimesMovedTowardsQueen = 0;
+        [SerializeField]
+        private int amtOfTimesConsumedMulch = 0; 
 
         public static int BLOCK_LEVEL = 0;
         public static int BLOCK_BELOW = 1;
@@ -58,6 +62,14 @@ public class AntLogic : MonoBehaviour
         public static string MULCH_BLOCK = "Mulch";
         public static string NEST_BLOCK = "Nest";
         public static string STONE_BLOCK = "Stone";
+
+
+    //static variables for Neural Network stuff
+    public static int DIG = 0;
+    public static int MOVE_TO_QUEEN = 1;
+    public static int DONATE_TO_QUEEN = 2;
+    public static int DONATE_TO_ANT = 3; 
+    //public static int 
 
     private void Awake()
     {
@@ -113,7 +125,7 @@ public class AntLogic : MonoBehaviour
 
     public void Move()
     {
-        Debug.Log($"Ant Position before move: x: {this.transform.position.x}, y: {this.transform.position.y}, z: {this.transform.position.z}");
+        //Debug.Log($"Ant Position before move: x: {this.transform.position.x}, y: {this.transform.position.y}, z: {this.transform.position.z}");
         List<Vector3> validMovementChoices = GetValidMovements();
         if (validMovementChoices.Count > 0 )
         {
@@ -305,7 +317,7 @@ public class AntLogic : MonoBehaviour
             {
                 if(blockBelow == MULCH_BLOCK)
                 {
-                EatMulch(); 
+                    EatMulch(); 
                 }
                 //then we can dig 
                 WorldManager.Instance.SetBlock(Mathf.RoundToInt(currPosition.x), Mathf.RoundToInt(currPosition.y), Mathf.RoundToInt(currPosition.z), new AirBlock());
@@ -329,7 +341,6 @@ public class AntLogic : MonoBehaviour
             this.antHealth -= 500.0f;
 
         }
-            //throw new NotImplementedException ();
             //stub for donating to the queen 
         }
 
