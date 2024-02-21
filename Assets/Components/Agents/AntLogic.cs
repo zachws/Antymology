@@ -31,37 +31,31 @@ using UnityEngine.UIElements;
 
 public class AntLogic : MonoBehaviour
     {
-    public WorldManager myWorldManager; 
+        public WorldManager myWorldManager; 
         //Serialize to make private variables accessible in Unity editor without making them public 
         [SerializeField]
         private static float startingHealth = 100.0f;
         [SerializeField]
-        private float antHealth;
+        public float antHealth;
         [SerializeField]
-        private static float decreaseAntHealthAmt = 1.0f;
+        public static float decreaseAntHealthAmt = 1.0f;
         [SerializeField]
         private float timer;
         [SerializeField]
         public Vector3 antPosition;
         [SerializeField]
-        private bool queen;
-        [SerializeField]
         public List<Vector3> possibleMovementChoices;
 
-    private static int BLOCK_LEVEL = 0;
-    private static int BLOCK_BELOW = 1;
-    private static int BLOCK_ABOVE = 2;
-    private static string AIR_BLOCK = "Air";
-    private static string CONTAINER_BLOCK = "Container";
-    private static string ACIDIC_BLOCK = "Acidic";
-    private static string GRASS_BLOCK = "Grass";
-    private static string MULCH_BLOCK = "Mulch";
-    private static string NEST_BLOCK = "Nest";
-    private static string STONE_BLOCK = "Stone";
-
-
-    /*        public GameObject mesh;
-            public Material[] materials; */
+        public static int BLOCK_LEVEL = 0;
+        public static int BLOCK_BELOW = 1;
+        public static int BLOCK_ABOVE = 2;
+        public static string AIR_BLOCK = "Air";
+        public static string CONTAINER_BLOCK = "Container";
+        public static string ACIDIC_BLOCK = "Acidic";
+        public static string GRASS_BLOCK = "Grass";
+        public static string MULCH_BLOCK = "Mulch";
+        public static string NEST_BLOCK = "Nest";
+        public static string STONE_BLOCK = "Stone";
 
     private void Awake()
     {
@@ -190,7 +184,7 @@ public class AntLogic : MonoBehaviour
     }
 
 
-    private string GetBlock(int blockChoice, Vector3 positionToCheck)
+    public string GetBlock(int blockChoice, Vector3 positionToCheck)
     {
         
         //Vector3 currPosition = CurrentPosition(); 
@@ -230,7 +224,7 @@ public class AntLogic : MonoBehaviour
 
     }
 
-    private Vector3 CurrentPosition()
+    public Vector3 CurrentPosition()
     {
         Vector3 pos = this.transform.position;
         pos.y = Mathf.Floor(pos.y);
@@ -244,15 +238,6 @@ public class AntLogic : MonoBehaviour
         theChoice.y = theChoice.y + 0.5f; //ant offset. 
         return theChoice; //validChoices[UnityEngine.Random.Range(0, validChoices.Count - 1)];
     }
-
-
-
-
-
-
-
-
-
 
 
 /*    private bool IsInBounds(Vector3 blockToCheck)
@@ -286,21 +271,19 @@ public class AntLogic : MonoBehaviour
         return inBounds; 
     }*/
 
-
-
         private void KillAnt()
         {
             //kill ant stub
             throw new NotImplementedException();
         }
 
-        private void EatMulch()
+        public void EatMulch()
         {
         //eat mulch stub
         this.antHealth += 1000; 
         }
 
-        private void DigBlock()
+        public void DigBlock()
         {
             Vector3 currPosition = CurrentPosition();
             string blockBelow = GetBlock(BLOCK_LEVEL, currPosition); //as we will be inside of the block so the below block is the level block 
@@ -330,12 +313,12 @@ public class AntLogic : MonoBehaviour
             throw new NotImplementedException();
         }
 
-        private void DecreaseHealth(bool isAcidic)
+        public void DecreaseHealth(bool isAcidic)
         {
             //This should decrease the ants health on each timestep 
             if (isAcidic == true)
             {
-                this.antHealth -= 2 * decreaseAntHealthAmt;
+                this.antHealth -= (2 * decreaseAntHealthAmt);
             }
             else
             {

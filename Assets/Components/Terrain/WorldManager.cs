@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Antymology.Terrain
@@ -15,6 +16,8 @@ namespace Antymology.Terrain
         /// The prefab containing the ant.
         /// </summary>
         public GameObject AntVariant;
+        public GameObject QueenVariant1;
+        public Material[] materials;
 
         /// <summary>
         /// The material used for eech block.
@@ -89,6 +92,8 @@ namespace Antymology.Terrain
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
             GenerateAnts();
+            GenerateQueen();
+            
         }
 
         /// <summary>
@@ -96,7 +101,8 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            for (int i = 0; i < antsToGenerate; i++)
+            //-1 so that we can do the queen after the loop 
+            for (int i = 0; i < antsToGenerate - 1; i++)
             {
                 //Create ant game object for each ant that is supposed to be created as selected/input in the worldManager script interface
                 GameObject ant = GameObject.Instantiate(AntVariant);
@@ -125,7 +131,45 @@ namespace Antymology.Terrain
                 ant.transform.position = boxToTest;
                 Ants.Add(antLogic); //add this particular ant to the antLogic list named Ants
             }
+            
 
+        }
+
+        private void GenerateQueen()
+        {
+            //
+            GameObject thaQueen = GameObject.Instantiate(QueenVariant1);
+            
+            //thaQueen.transform.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            //Renderer rend = thaQueen.GetComponent<Renderer>(); //https://stackoverflow.com/questions/48844379/unity3d-how-to-change-color-of-instantiated-prefab
+            //rend.material = AntB
+            //rend.material.color = Color.black;
+            
+            Queen queenLogic = thaQueen.GetComponent<Queen>();
+            //queenLogic.GetComponent<MeshFilter>().mesh.color = Color.red;
+            //queenLogic.GetComponent<MeshRenderer>().material.color = Color.red;
+            //thaQueen.GetComponent<MeshRenderer>().material = materials[0];
+            //X position can be anything from 1 to the world diameter * chunk diameter
+            int xPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter));
+            //Y starts at the maximum (in the air) and falls down until a non-air block is found within bounds
+            int yPos = ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter;
+            //Z position can be anything from 1 to the world diameter * chunk diameter
+            int zPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter));
+
+            //Create vector with these random coordinates so that we can look through the ants Y position such that it lands on top of a box after starting in the air at max height
+            var boxToTest = new Vector3(xPos, yPos, zPos);
+
+            // While the block the ant is falling onto is an airblock we keep decrementing Y until the ant lands on a non-airblock type block 
+            while (GetBlock((int)boxToTest.x, (int)boxToTest.y, (int)boxToTest.z).GetType() == typeof(AirBlock))
+            {
+                //Ant is obviously still in the air so we need to decrement Y (so the ant falls) 
+                boxToTest.y--;
+            }
+            boxToTest.y += 0.5f;//Cube offset so that ants spawn on top of cubes 
+            queenLogic.antPosition = boxToTest;
+            thaQueen.transform.position = boxToTest; 
+            
+            
         }
 
         #endregion

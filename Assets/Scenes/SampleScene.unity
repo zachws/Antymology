@@ -435,6 +435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AntVariant: {fileID: 4654276620146362104, guid: 4fe165e1b265fa344ae4226c5fd316c9,
     type: 3}
+  QueenVariant1: {fileID: 7676399974753886905, guid: 7928ad4c1212b7b4f86211ca3e187d44,
+    type: 3}
   blockMaterial: {fileID: 2100000, guid: 4db9d8fce1a69b74f81daf1375c9ed88, type: 2}
   Ants: []
   antsToGenerate: 5
