@@ -45,13 +45,19 @@ public class AntLogic : MonoBehaviour
         public Vector3 antPosition;
         [SerializeField]
         private bool queen;
-    [SerializeField]
-    public List<Vector3> possibleMovementChoices;
+        [SerializeField]
+        public List<Vector3> possibleMovementChoices;
 
     private static int BLOCK_LEVEL = 0;
     private static int BLOCK_BELOW = 1;
     private static int BLOCK_ABOVE = 2;
     private static string AIR_BLOCK = "Air";
+    private static string CONTAINER_BLOCK = "Container";
+    private static string ACIDIC_BLOCK = "Acidic";
+    private static string GRASS_BLOCK = "Grass";
+    private static string MULCH_BLOCK = "Mulch";
+    private static string NEST_BLOCK = "Nest";
+    private static string STONE_BLOCK = "Stone";
 
 
     /*        public GameObject mesh;
@@ -83,8 +89,8 @@ public class AntLogic : MonoBehaviour
             {
                 KillAnt();
             }*/
-//Debug.Log
             Move();
+            //DigBlock(); 
             //update time step??
 
             //had to do this so that the prefab coordinates would actually match the "ants coordinates" and display properly
@@ -163,7 +169,6 @@ public class AntLogic : MonoBehaviour
         {
             String blockLevel = GetBlock(BLOCK_LEVEL, positionToCheck);
             String blockAbove = GetBlock(BLOCK_ABOVE, positionToCheck);
-            String blockBelow = GetBlock(BLOCK_BELOW, positionToCheck); 
 
             if(blockAbove == AIR_BLOCK && blockLevel != AIR_BLOCK) //&& blockBelow != "Air")
             {
@@ -284,14 +289,26 @@ public class AntLogic : MonoBehaviour
 
         private void EatMulch()
         {
-            //eat mulch stub
-            throw new NotImplementedException();
+        //eat mulch stub
+        this.antHealth += 1000; 
         }
 
         private void DigBlock()
         {
+            Vector3 currPosition = CurrentPosition();
+            string blockBelow = GetBlock(BLOCK_LEVEL, currPosition); //as we will be inside of the block so the below block is the level block 
+            if(blockBelow != CONTAINER_BLOCK)
+            {
+                if(blockBelow == MULCH_BLOCK)
+                {
+                EatMulch(); 
+                }
+                //then we can dig 
+                WorldManager.Instance.SetBlock(Mathf.RoundToInt(currPosition.x), Mathf.RoundToInt(currPosition.y), Mathf.RoundToInt(currPosition.z), new AirBlock());
+                //update ant location 
+                this.transform.position = new Vector3(currPosition.x, currPosition.y - 0.5f, currPosition.z);
+            }
             //dig block stub
-            throw new NotImplementedException();
         }
 
         private void TimeStepActions()
