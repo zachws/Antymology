@@ -87,12 +87,12 @@ public class AntLogic : MonoBehaviour
                 isAcidic = true; 
             }
             DecreaseHealth(isAcidic);
-            //check if the ant should die after health decrease 
-/*            if(this.antHealth <= 0.0f)
-            {
-                KillAnt();
-            }*/
-            Move();
+        //check if the ant should die after health decrease 
+        if (this.antHealth <= 0.0f)
+        {
+            KillAnt();
+        }
+        Move();
 
         //TESTING SHARE HEALTH
         //
@@ -284,10 +284,11 @@ public class AntLogic : MonoBehaviour
         return inBounds; 
     }*/
 
-        private void KillAnt()
+        public void KillAnt()
         {
             //kill ant stub
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            this.gameObject.SetActive(false);
         }
 
         public void EatMulch()

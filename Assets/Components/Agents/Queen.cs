@@ -38,6 +38,10 @@ public class Queen : AntLogic
             isAcidic = true;
         }
         this.DecreaseHealth(isAcidic);
+        if(this.antHealth <= 0)
+        {
+            this.KillAnt();
+        }
         //GetBlock();
 
         //Move();
