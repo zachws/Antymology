@@ -50,8 +50,17 @@ namespace Antymology.Terrain
 
         #region MyFields
         //List of ants
-        public List<AntLogic> Ants = new List<AntLogic>();
-        public int antsToGenerate; 
+        public List<AntLogic> Ants;// = new List<AntLogic>();
+        public int antsToGenerate;
+
+        //Neural Network data from: https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/Manager.cs
+        public int[] layers = new int[] { 5,5,7,10 }; //5 input normal ant, 5input queen, 7 anonymous/hidden nodes, 9outputs (f, b, l, r, 
+        [Range(0.0001f, 1f)] public float mutationChance = 0.01f;
+        [Range(0f, 1f)] public float mutationStrength = 0.5f;
+        [Range(0.1f, 10f)] public float Gamespeed = 1f;
+
+        public List<NeuralNetwork> networks;
+        //private List<AntLogic> antsInNetwork; 
 
         #endregion
 
@@ -92,9 +101,24 @@ namespace Antymology.Terrain
             Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
+            InitNetworks();
             GenerateAnts();
             GenerateQueen();
             
+        }
+
+        //code from: https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/Manager.cs
+        public void InitNetworks()
+        {
+            networks = new List<NeuralNetwork>();
+            int numberOfAnts = ConfigurationManager.Instance.Number_Ants_In_Gen; 
+
+            for(int i = 0; i < numberOfAnts; i++)
+            {
+                NeuralNetwork network = new NeuralNetwork(layers);
+                //network.Load("Assets/pre-trained-data.txt");
+                networks.Add(network);
+            }
         }
 
         /// <summary>
@@ -102,13 +126,28 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
+            Time.timeScale = Gamespeed;//can increase to speed up training if GPU handles it
+
+            //if the simulation is running but over we should reset by destroying ants, and sorting the neural network so that the next generation can start
+            if (Ants.Count > 0)
+            {
+                CleanupAntsSortGen(); //destroys ants and sorts networks and mutates them.
+            }
+
+            int numberOfAnts = ConfigurationManager.Instance.Number_Ants_In_Gen;
+            Ants = new List<AntLogic>();
             //-1 so that we can do the queen after the loop 
-            for (int i = 0; i < antsToGenerate - 1; i++)
+            for (int i = 0; i < numberOfAnts; i++)
             {
                 //Create ant game object for each ant that is supposed to be created as selected/input in the worldManager script interface
                 GameObject ant = GameObject.Instantiate(AntVariant);
+                ant.name = "workerAnt " + i;
                 //get the ant logic (script) to be attached to the new ant game object so that they follow our predefined logic/rules. 
                 AntLogic antLogic = ant.GetComponent<AntLogic>();
+                //assign ant network 
+                antLogic.network = networks[i];
+                //antLogic.tag = "Ant";
+
 
                 //X position can be anything from 1 to the world diameter * chunk diameter
                 int xPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter ));
@@ -136,20 +175,45 @@ namespace Antymology.Terrain
 
         }
 
+        private void CleanupAntsSortGen()
+        {
+            //kill queen
+            // Destroy(QueenVariant1.gameObject);
+            //kill ants
+            for (int i = 0; i < Ants.Count; i++)
+            {
+                Destroy(Ants[i].gameObject);
+            }
+            SortNetworks();
+        }
+
+        //code from here: https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/Manager.cs
+        public void SortNetworks()
+        {
+            int popSize = ConfigurationManager.Instance.Number_Ants_In_Gen;
+            for (int i = 0; i < popSize; i++)
+            {
+                Ants[i].UpdateFitness();
+            }
+
+            networks.Sort();
+            networks[popSize - 1].Save("Assets/SavedData.txt");
+
+            for(int i = 0; i < popSize / 2; i++)
+            {
+                networks[i] = networks[i + popSize / 2].Copy(new NeuralNetwork(layers));
+                networks[i].Mutate((int)(1 / mutationChance), mutationStrength);
+            }
+        }
+
         private void GenerateQueen()
         {
-            //
+           
             GameObject thaQueen = GameObject.Instantiate(QueenVariant1);
-            
-            //thaQueen.transform.GetComponent<MeshRenderer>().material.color = Color.yellow;
-            //Renderer rend = thaQueen.GetComponent<Renderer>(); //https://stackoverflow.com/questions/48844379/unity3d-how-to-change-color-of-instantiated-prefab
-            //rend.material = AntB
-            //rend.material.color = Color.black;
-            
+            thaQueen.name = "BossAnt";           
             queenLogic = thaQueen.GetComponent<Queen>();
-            //queenLogic.GetComponent<MeshFilter>().mesh.color = Color.red;
-            //queenLogic.GetComponent<MeshRenderer>().material.color = Color.red;
-            //thaQueen.GetComponent<MeshRenderer>().material = materials[0];
+            //queenLogic.tag = "Ant";
+
             //X position can be anything from 1 to the world diameter * chunk diameter
             int xPos = UnityEngine.Random.Range(1, (ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter));
             //Y starts at the maximum (in the air) and falls down until a non-air block is found within bounds

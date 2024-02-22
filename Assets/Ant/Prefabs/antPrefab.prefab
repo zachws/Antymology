@@ -4061,7 +4061,12 @@ MonoBehaviour:
   antHealth: 0
   timer: 0
   antPosition: {x: 0, y: 0, z: 0}
-  queen: 0
+  possibleMovementChoices: []
+  isQueen: 0
+  sharedHealthCount: 0
+  moveToQueenCount: 0
+  mulchCount: 0
+  sharedWithQueen: 0
 --- !u!1 &174600
 GameObject:
   m_ObjectHideFlags: 0

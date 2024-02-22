@@ -49,4 +49,35 @@ public class ConfigurationManager : Singleton<ConfigurationManager>
     /// The radius of each acidic region
     /// </summary>
     public int Conatiner_Sphere_Radius = 20;
+
+    /// <summary>
+    /// Number of ants for a given generation
+    /// </summary>
+    public int Number_Ants_In_Gen = 20;
+
+    public float Starting_Health = 5000.0f; //queen is 0.5 *= starting_health (i.e., 50% more) 
+
+    public float Maximum_Health = 10000.0f; //queen is 50% more 
+
+    public float Decrease_Health_Amount = 1.0f;
+
+    public float Health_Share_Queen_Weight = 1.0f;
+
+    public float Move_Towards_Queen_Weight = 0.6f;
+
+    public float Mulch_Consumed_Weight = 0.2f;
+
+    public float Amount_Nest_Built_Weight = 1.0f;
+
+    public float Queen_Health_Weight = 0.5f;
+
+    public float Distance_From_Queen_Weight = -0.1f;
+
+    public float Maximum_Queen_Health = 15000.0f;
+
+    public float Starting_Queen_health = 7500.0f;
+
+    public float Minimum_Health_To_Donate = 550.0f;
+
+    public float Donate_Health_Amount = 400.0f; 
 }

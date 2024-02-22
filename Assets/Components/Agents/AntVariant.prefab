@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AntVariant
       objectReference: {fileID: 0}
+    - target: {fileID: 174574, guid: 9740ce9ceccc8764ba1256148b5edb56, type: 3}
+      propertyPath: m_TagString
+      value: Ant
+      objectReference: {fileID: 0}
+    - target: {fileID: 186542, guid: 9740ce9ceccc8764ba1256148b5edb56, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 489948, guid: 9740ce9ceccc8764ba1256148b5edb56, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -96,6 +104,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7642992394398271780}
+    - targetCorrespondingSourceObject: {fileID: 174574, guid: 9740ce9ceccc8764ba1256148b5edb56,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -902051100546679634}
   m_SourcePrefab: {fileID: 100100000, guid: 9740ce9ceccc8764ba1256148b5edb56, type: 3}
 --- !u!1 &4654276620146362104 stripped
 GameObject:
@@ -111,3 +123,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4654276620146362104}
   m_Mesh: {fileID: 4300000, guid: 00be9229563c43941b931aea87b40995, type: 3}
+--- !u!65 &-902051100546679634
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4654276620146362104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

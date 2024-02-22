@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Antymology.Terrain;
 using UnityEngine.UIElements;
+using System.Linq;
 
 
 /*
@@ -31,26 +32,30 @@ using UnityEngine.UIElements;
 
 public class AntLogic : MonoBehaviour
     {
-        public WorldManager myWorldManager; 
+        //public WorldManager myWorldManager; 
         //Serialize to make private variables accessible in Unity editor without making them public 
-        [SerializeField]
-        private static float startingHealth = 5000.0f;
-        [SerializeField]
         public float antHealth;
         [SerializeField]
-        public static float decreaseAntHealthAmt = 1.0f;
-        [SerializeField]
         private float timer;
-        [SerializeField]
         public Vector3 antPosition;
-        [SerializeField]
         public List<Vector3> possibleMovementChoices;
+        private List<AntLogic> neighborList;
+        private float closestNeighborDist; 
+        public bool isQueen; 
+
+    //Maybe move these to the config manager; will change later 
         [SerializeField]
-        private int amtOfTimesHealthSharedWithQueen = 0;
+        private int sharedHealthCount = 0; //shared to queen
         [SerializeField]
-        private int amtOfTimesMovedTowardsQueen = 0;
+        private int moveToQueenCount = 0;
         [SerializeField]
-        private int amtOfTimesConsumedMulch = 0; 
+        private int mulchCount = 0;
+    [SerializeField]
+    private int sharedWithQueen = 0; 
+
+/*        private static float distanceToQueenWeight = -0.1f;
+    private static float queenTotalHealthWeight = 0.5f;
+    private static float nestBlocksBuiltWeight = 1.0f; */
 
         public static int BLOCK_LEVEL = 0;
         public static int BLOCK_BELOW = 1;
@@ -65,25 +70,70 @@ public class AntLogic : MonoBehaviour
 
 
     //static variables for Neural Network stuff
-    public static int DIG = 0;
-    public static int MOVE_TO_QUEEN = 1;
-    public static int DONATE_TO_QUEEN = 2;
-    public static int DONATE_TO_ANT = 3; 
-    //public static int 
+    public NeuralNetwork network;
+    public static int MOVE_FORWARD = 0; 
+    public static int MOVE_BACKWARD = 1;
+    public static int MOVE_LEFT = 2;
+    public static int MOVE_RIGHT = 3; 
+    public static int DIG = 4;
+    public static int EAT_MULCH = 5;
+    public static int SHARE_HEALTH = 6;
+    public static int BUILD_NEST = 7;
+    public static int MOVE_TO_QUEEN = 8; // might just use normal functions with a check to determine weight if we truly want to go towards the queen. 
+    public static int SKIP_TURN = 9; //do nothing
+
+    //input for neural network/ant behavior 
+    private float[] input = new float[10]; // 10 actions 
+
+    /*
+     * 
+     * Output Logic: i.e., what we feed to NeuralNetwork.FeedForward to get the input list back for our movement decisions
+     *  
+     *  Normal Ant: 
+     *      1. Current Health
+     *      2. Mulch Consumed
+     *      3. Blocks Dug
+     *      4. Amount of times health donated to Queen 
+     *      5. Distance from queen
+     *  
+     *  Queen Ant: 
+     *      1. Current Health
+     *      2. Mulch Consumed
+     *      3. Number of nest blocks built
+     *      4. How many neighbors nearby 
+     *      5. Distance to nearby neighbors 
+     * 
+     */
+
+    private float[] PackageAntNeuralNetwork(float currentHealth, float mulchCount, float blocksDug, float sharedHealthCount, float distFromBae)
+    {
+        float[] input = new float[] { currentHealth, mulchCount, blocksDug, sharedHealthCount, distFromBae };
+        return network.FeedForward(input);
+    }
+
+    private float[] PackageQueenNeuralNetwork(float currentHealth, float mulchCount, float numNestBlocksBuilt, float numNeighborsNear, float distToNearNeighbors)
+    {
+        float[] input = new float[] { currentHealth, mulchCount, numNestBlocksBuilt, numNeighborsNear, distToNearNeighbors };
+        return network.FeedForward(input);
+    }
 
     private void Awake()
     {
-        myWorldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
+        //myWorldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
     }
 
     // Start is called before the first frame update
     void Start()
         {
             //At the start of the ant creation, set their health to the startingHealth constant (will change as I progress through the assignment) 
-            this.antHealth = startingHealth;
+            this.antHealth = ConfigurationManager.Instance.Starting_Health;
             //Initialize the timer to zero, will base timeStep off of timers difference from the current local time 
             this.timer = 0.0f;
+            isQueen = false; 
             possibleMovementChoices = new List<Vector3>();
+            neighborList = new List<AntLogic>();
+            closestNeighborDist = -1;
+        this.gameObject.tag = "Ant";
 
     }
 
@@ -112,6 +162,7 @@ public class AntLogic : MonoBehaviour
         Vector3 queenPos = WorldManager.Instance.queenLogic.CurrentPosition();
         queenPos.y += 0.5f; 
         antList[0].transform.position =queenPos;
+        PopulateNeighborList(antList[0].transform.position, 5.0f);
         DonateHealth(); 
 
 
@@ -122,6 +173,43 @@ public class AntLogic : MonoBehaviour
             //had to do this so that the prefab coordinates would actually match the "ants coordinates" and display properly
             //transform.position = this.antPosition;
         }
+
+    /// <summary>
+    /// Finds neighbors within a predefined distance via temporary Collider
+    /// </summary>
+    /// <source link="https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html"></source>
+    /// <param name="posOfCaller"></param>
+    /// <param name="radius"></param>
+    public void PopulateNeighborList(Vector3 posOfCaller, float radius)
+    {
+        neighborList.Clear();
+
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 5.0f);
+        closestNeighborDist = 5000;
+
+        foreach (var hitCollider in hitColliders)
+        {
+            Debug.Log("ok");
+            if(hitCollider.gameObject.CompareTag("Ant") ) //|| hitCollider.tag.Equals("thaQueen"))
+            {
+                Debug.Log("whew");
+                if (!hitCollider.gameObject.Equals(this.gameObject))
+                {
+                    //continue; 
+                    if ((transform.position - hitCollider.gameObject.transform.position).magnitude < closestNeighborDist)
+                    {
+                        closestNeighborDist = (transform.position - hitCollider.gameObject.transform.position).magnitude;
+                    }
+
+                    neighborList.Add(hitCollider.gameObject.GetComponent<AntLogic>());
+                }
+
+
+
+                
+            }
+        }
+    }
 
     public void Move()
     {
@@ -139,6 +227,8 @@ public class AntLogic : MonoBehaviour
         }
 
     }
+
+
 
 
 
@@ -301,12 +391,18 @@ public class AntLogic : MonoBehaviour
             //kill ant stub
             //throw new NotImplementedException();
             this.gameObject.SetActive(false);
+            
+            //Remove ant from list if it's dead as we obviously don't want to base NN data on dead ants not doing anyting 
+            //WorldManager.Instance.Ants.Remove(this);
+
+            //Destroy(this.gameObject);
         }
 
         public void EatMulch()
         {
         //eat mulch stub
-        this.antHealth += 1000; 
+        this.antHealth += 1000;
+        this.mulchCount += 1; 
         }
 
         public void DigBlock()
@@ -327,7 +423,7 @@ public class AntLogic : MonoBehaviour
             //dig block stub
         }
 
-        private void DonateHealth()
+/*        private void DonateHealth()
         {
         float distanceFromQueen;
         Vector3 queenPosition = WorldManager.Instance.queenLogic.CurrentPosition();
@@ -336,14 +432,49 @@ public class AntLogic : MonoBehaviour
         distanceFromQueen = Vector3.Distance(queenPosition, antPosition);
         if(distanceFromQueen <= 2 && this.antHealth >= 1500.0f)
         {
-            amtOfTimesHealthSharedWithQueen += 1;
+            sharedHealthCount += 1;
             WorldManager.Instance.queenLogic.antHealth += 500.0f;
             this.antHealth -= 500.0f;
 
         }
             //stub for donating to the queen 
-        }
+        }*/
 
+        private void DonateHealth()
+        {
+            float minDonationHP = ConfigurationManager.Instance.Minimum_Health_To_Donate; 
+            AntLogic tempNeighbor = null; 
+
+            foreach (var neighbor in neighborList)
+            {
+            Debug.Log($"neighbor is {neighbor}");
+                float neighborHealth = neighbor.antHealth;
+                if( neighborHealth < ConfigurationManager.Instance.Minimum_Health_To_Donate)
+                //if(neighborHealth < 15000.0f)
+                {
+                    minDonationHP = neighborHealth;
+                    tempNeighbor = neighbor;
+                }
+
+            }
+
+        if (tempNeighbor != null)
+        {
+            float newHealth = tempNeighbor.antHealth + ConfigurationManager.Instance.Donate_Health_Amount;
+            this.antHealth -= ConfigurationManager.Instance.Donate_Health_Amount; 
+            tempNeighbor.antHealth = newHealth;
+
+            if (tempNeighbor.isQueen)
+            {
+                sharedWithQueen += 1; 
+            }
+            else
+            {
+                sharedHealthCount += 1;
+            }
+        }
+            //int lowestHealth = 
+        }
         private void TimeStepActions()
         {
             //time step action stub
@@ -355,13 +486,21 @@ public class AntLogic : MonoBehaviour
             //This should decrease the ants health on each timestep 
             if (isAcidic == true)
             {
-                this.antHealth -= (2 * decreaseAntHealthAmt);
+                this.antHealth -= (2 * ConfigurationManager.Instance.Decrease_Health_Amount);
             }
             else
             {
-                this.antHealth -= decreaseAntHealthAmt;
+                this.antHealth -= ConfigurationManager.Instance.Decrease_Health_Amount;
             }
         }
+
+    public void UpdateFitness()
+    {
+        float healthQueenFitness = sharedHealthCount * ConfigurationManager.Instance.Health_Share_Queen_Weight;
+        float moveToQueenFitness = moveToQueenCount * ConfigurationManager.Instance.Move_Towards_Queen_Weight;
+        float mulchConsumedFitness = mulchCount * ConfigurationManager.Instance.Mulch_Consumed_Weight;
+        this.network.fitness = healthQueenFitness + moveToQueenFitness + mulchConsumedFitness;
+    }
 
         //Queen logic after I get regular ant movement working (may as well just have states for queen rather than a separate C# file - not sure if this is better or worse programming, probably less modular) 
 
