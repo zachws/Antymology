@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class NeuralNetwork : IComparable<NeuralNetwork>
 {
     //NOTE: I USED THIS VIDEO TO HELP WITH THE NEURAL NETWORK LOGIC -> https://www.youtube.com/watch?v=Yq0SfuiOVYE
+    //Found InitBias function from: https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/NeuralNetwork.cs
     //private System.Random random; 
     private int[] layers;
     private float[][] neurons; //connections between neurons 
@@ -13,7 +15,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     private float[][][] weights;
     //private float[numberOfLayers][] biases;
     //private float[numberOfLayers][][] weights;
-    private int[] activations;
+    //private int[] activations;
 
     public float fitness = 0; 
 
@@ -34,7 +36,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         InitWeights(); 
     }
 
-    //Deep copy constructor
+/*    //Deep copy constructor
     public NeuralNetwork(NeuralNetwork copyNetwork)
     {
         this.layers = new int[copyNetwork.layers.Length];
@@ -49,6 +51,31 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         CopyWeights(copyNetwork.weights);
 
         //Deepcopy weights
+    }*/
+
+    //Deep copy constructor 
+    public NeuralNetwork Copy(NeuralNetwork networkToCopy)
+    {
+        for(int i = 0; i <  biases.Length; i++)
+        {
+            for (int j = 0; j < biases[i].Length; j++)
+            {
+                networkToCopy.biases[i][j] = biases[i][j];
+            }
+        }
+
+        for(int i = 0; i < weights.Length; i++)
+        {
+            for(int j = 0; j < weights[i].Length; j++)
+            {
+                for(int k = 0; k < weights[i][j].Length; k++)
+                {
+                    networkToCopy.weights[i][j][k] = weights[i][j][k];
+                }
+            }
+        }
+
+        return networkToCopy; 
     }
 
 
@@ -71,25 +98,23 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         //throw new NotImplementedException();
     }
 
-    public void AddFitness(float fit)
-    {
-        fitness += fit; 
-    }
-
-    public void SetFitness(float fit)
-    {
-        fitness = fit;
-    }
-
-    public float GetFitness()
-    {
-        return fitness; 
-    }
-
 
     void InitBiases()
     {
-        throw new NotImplementedException();
+        List<float[]> biasList = new List<float[]>();
+        for(int i = 0; i < layers.Length; i++)
+        {
+            float[] bias = new float[layers[i]];
+
+            for(int j = 0; j < layers[i]; j++)
+            {
+                bias[j] = UnityEngine.Random.Range(-0.5f, 0.5f);
+            }
+
+            biasList.Add(bias); 
+        }
+
+        biases = biasList.ToArray();
     }
 
     //Generate Weight array
@@ -101,7 +126,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         //iterate in for loop through numer of neurons and weight connections that each neuron has 
 
         //start with first hidden layer (index 1); each layer has its own weight matrix for a neuron 
-        for(int i = 0; i < layers.Length; i++)
+        for(int i = 1; i < layers.Length; i++)
         {
             List<float[]> layerWeightList = new List<float[]>();//float arrays represents actual weight for every single neuron
             int neuronsInPreviousLayer = layers[i - 1]; //how many neurons in previous layer 
@@ -145,6 +170,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     }
 
 
+    //https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/NeuralNetwork.cs
     public float[] FeedForward(float[] inputs)
     {
         //iterate through inputs and put into input layer in neuron matrix 
@@ -158,11 +184,13 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         //2nd index so we start at 1 to address properly 
         for (int i = 1; i < layers.Length; i++)
         {
-            for(int j = 0; j < neurons[i].Length; j++)
+            //int layer = i - 1;
+            for (int j = 0; j < neurons[i].Length; j++)
             {
                 //iterate over every neuron in each layer 
 
-                float value = 0.25f; //constant bias of 0.25f will change this later when I implement biases 
+                float value = 0f; 
+                //float value = 0.25f; //constant bias of 0.25f will change this later when I implement biases 
                 for(int k = 0; k < neurons[i - 1].Length; k++)
                 {
                     //iterate over all neurons in previous layer
@@ -172,14 +200,44 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
 
                 //apply activation
                 //hyperbolic tangent activaiton (converts value between -1 and 1) 
-                neurons[i][j] = (float)Math.Tanh(value); //new value of current neuron
+                //neurons[i][j] = (float)Math.Tanh(value); //new value of current neuron
+                neurons[i][j] = Activate(value + biases[i][j]);
             }
         }
         //Return output layer 
         return neurons[neurons.Length - 1]; //returning the last layer (output layer) 
     }
 
-    //mutation function (chance based); iterate through all layers, neurons (and all connections to previous layer)
+    //found here https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/NeuralNetwork.cs
+    public float Activate(float value)
+    {
+        return (float)Math.Tanh(value); 
+    }
+
+    public void Mutate(int chance, float val)
+    {
+
+        for(int i = 0; i < biases.Length; i++)
+        {
+            for(int j = 0; j < biases[i].Length ; j++)
+            {
+                biases[i][j] = (UnityEngine.Random.Range(0f, chance) <= 5) ? biases[i][j] += UnityEngine.Random.Range(-val, val) : biases[i][j];
+            }
+        }
+
+        for(int i = 0; i < weights.Length; i++)
+        {
+            for(int j = 0; j < weights[i].Length ; j++)
+            {
+                for(int k = 0; k < weights[i][j].Length ; k++)
+                {
+                    weights[i][j][k] = (UnityEngine.Random.Range(0f, chance) <= 5) ? weights[i][j][k] += UnityEngine.Random.Range(-val, val) : weights[i][j][k];
+                }
+            }
+        }
+    }
+
+  /*  //mutation function (chance based); iterate through all layers, neurons (and all connections to previous layer)
     //8% chance of mutation, 2% chance for each individual type of mutation 
     public void Mutate()
     {
@@ -220,7 +278,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
                 }
             }
         }
-    }
+    }*/
 
     //Compares 1 NeuralNetwork to another 
     public int CompareTo(NeuralNetwork other)
@@ -242,5 +300,94 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         {
             return 0; 
         }
+    }
+
+
+    //load biases and weights from file
+    //found from: https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/NeuralNetwork.cs
+    public void Load(string path)
+    {
+        TextReader inStream = new StreamReader(path);
+        int numberOfLines = (int)new FileInfo(path).Length; 
+        string[] listLines = new string[numberOfLines];
+        int index = 1; 
+
+        for(int i = 1; i < numberOfLines; i++)
+        {
+            listLines[i] = inStream.ReadLine();
+        }
+        inStream.Close();
+
+        if(new FileInfo(path).Length > 0)
+        {
+
+            for(int i = 0; i < biases.Length; i++)
+            {
+
+                for(int j = 0; j< biases[i].Length; j++)
+                {
+                    biases[i][j] = float.Parse(listLines[index]);
+                    index++;
+                }
+            }
+
+            for(int i = 0; i < weights.Length; i++)
+            {
+                for(int j = 0; j< weights[i].Length; j++)
+                {
+                    for(int k = 0; k < weights[i][j].Length; k++)
+                    {
+                        weights[i][j][k] = float.Parse(listLines[index]);
+                        index++;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    //https://github.com/kipgparker/MutationNetwork/blob/master/Mutation%20Neural%20Network/Assets/NeuralNetwork.cs
+    //saves biases and weights within network to file
+    public void Save(string path)
+    {
+
+        File.Create(path).Close();
+        StreamWriter outStream = new StreamWriter(path, true);
+
+        for(int i = 0; i < biases.Length;i++)
+        {
+            for(int j = 0; j< biases[i].Length; j++)
+            {
+                outStream.WriteLine(biases[i][j]);  
+            }
+        }
+
+        for(int i = 0; i < weights.Length; i++)
+        {
+            for(int j = 0; j < weights[i].Length; j++)
+            {
+                for(int k = 0; k < weights[i][j].Length; k++)
+                {
+                    outStream.WriteLine(weights[i][j][k]);
+                }
+            }
+        }
+        outStream.Close();
+
+    }
+    public void AddFitness(float fit)
+    {
+        fitness += fit;
+    }
+
+    public void SetFitness(float fit)
+    {
+        fitness = fit;
+    }
+
+    public float GetFitness()
+    {
+        return fitness;
     }
 }
